@@ -5,9 +5,9 @@
   <subtitle>Re 爆肝魔王幹部的地球之旅</subtitle>
   <link href="/ruby-.github.io/atom.xml" rel="self"/>
   
-  <link href="https://ruby-.github.io/blog/"/>
+  <link href="https://ruby-.github.io/"/>
   <updated>2019-09-18T14:25:38.000Z</updated>
-  <id>https://ruby-.github.io/blog/</id>
+  <id>https://ruby-.github.io/</id>
   
   <author>
     <name>R5by</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>k8s-basics</title>
-    <link href="https://ruby-.github.io/blog/2019/09/17/k8s-basics/"/>
-    <id>https://ruby-.github.io/blog/2019/09/17/k8s-basics/</id>
+    <link href="https://ruby-.github.io/2019/09/17/k8s-basics/"/>
+    <id>https://ruby-.github.io/2019/09/17/k8s-basics/</id>
     <published>2019-09-18T01:56:46.000Z</published>
     <updated>2019-09-18T14:25:38.000Z</updated>
     
@@ -71,10 +71,10 @@
     </summary>
     
     
-      <category term="k8s" scheme="https://ruby-.github.io/blog/categories/k8s/"/>
+      <category term="k8s" scheme="https://ruby-.github.io/categories/k8s/"/>
     
     
-      <category term="k8s, demo" scheme="https://ruby-.github.io/blog/tags/k8s-demo/"/>
+      <category term="k8s, demo" scheme="https://ruby-.github.io/tags/k8s-demo/"/>
     
   </entry>
   
