@@ -57,27 +57,28 @@
 </script>
 
   <meta property="og:type" content="website">
-<meta property="og:title" content="Ruby-&#39;s Blog">
-<meta property="og:url" content="https://ruby-.github.io/index.html">
+<meta property="og:title" content="tags">
+<meta property="og:url" content="https://ruby-.github.io/tags/index.html">
 <meta property="og:site_name" content="Ruby-&#39;s Blog">
 <meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-09-18T02:11:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ruby-&#39;s Blog">
-  <link rel="canonical" href="https://ruby-.github.io/">
+<meta name="twitter:title" content="tags">
+  <link rel="canonical" href="https://ruby-.github.io/tags/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
+    isHome: false,
     isPost: false,
-    isPage: false,
+    isPage: true,
     isArchive: false
   };
 </script>
 
-  <title>Ruby-'s Blog</title>
+  <title>tags | Ruby-'s Blog</title>
   
 
 
@@ -188,6 +189,18 @@
 
     
 
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+
 </nav>
   <div class="site-search">
     <div class="popup search-popup">
@@ -225,164 +238,52 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
+
   <div id="posts" class="posts-expand">
-        <article itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block home">
-    <link itemprop="mainEntityOfPage" href="https://ruby-.github.io/2019/09/17/k8s-basics/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="R5by">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ruby-'s Blog">
-    </span>
+    
+    
+    
+    <div class="post-block page">
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-            
-            <a href="/2019/09/17/k8s-basics/" class="post-title-link" itemprop="url">k8s-basics</a>
-          
-        </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
+<h1 class="post-title" itemprop="name headline">tags
 
-              
-                
-              
+</h1>
 
-              <time title="Created: 2019-09-17 20:56:46 / Modified: 21:48:08" itemprop="dateCreated datePublished" datetime="2019-09-17T20:56:46-05:00">2019-09-17</time>
-            </span>
-          
-            
+<div class="post-meta">
+  
 
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a></span>
+</div>
 
-                
-                
-              
-            </span>
-          
-
-          
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              
-              <span>4.6k</span>
-            </span>
-          
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              
-              <span>4 mins.</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
-          <h1 id="Demo-of-Kubernetes-Basics"><a href="#Demo-of-Kubernetes-Basics" class="headerlink" title="Demo of Kubernetes Basics"></a>Demo of Kubernetes Basics</h1><h2 id="Server-Overview"><a href="#Server-Overview" class="headerlink" title="Server Overview"></a>Server Overview</h2><p>We have setup 3 virtual machines，each has 1 cpu and 1GB memory. Details：</p>
-<table>
-<thead>
-<tr>
-<th align="center">Server OS</th>
-<th align="center">IP Address</th>
-<th align="center">Node Type</th>
-<th align="center">CPU</th>
-<th align="center">Memory</th>
-<th align="center">Hostname</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">ubuntu16.04</td>
-<td align="center">192.168.56.103</td>
-<td align="center">master</td>
-<td align="center">1</td>
-<td align="center">1G</td>
-<td align="center">server01</td>
-</tr>
-<tr>
-<td align="center">ubuntu16.04</td>
-<td align="center">192.168.56.104</td>
-<td align="center">slave1</td>
-<td align="center">1</td>
-<td align="center">1G</td>
-<td align="center">server02</td>
-</tr>
-<tr>
-<td align="center">ubuntu16.04</td>
-<td align="center">192.168.56.105</td>
-<td align="center">slave2</td>
-<td align="center">1</td>
-<td align="center">1G</td>
-<td align="center">server03</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>To follow this demo, root privilege is required, ask system admin (Todd) for root access.</p>
-</blockquote>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/09/17/k8s-basics/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
+      
+      
+      <div class="post-body">
         
+          <div class="tag-cloud">
+            <div class="tag-cloud-title">
+              1 tag in total
+            </div>
+            <div class="tag-cloud-tags">
+              
+                <a href="/tags/k8s-demo/" style="font-size: 12px; color: #ccc">k8s, demo</a>
+              
+            </div>
+          </div>
+        
+      </div>
+      
+      
       
     </div>
+    
 
     
     
-    
-      <footer class="post-footer">
-          <div class="post-eof"></div>
-        
-      </footer>
-  </div>
-  
-  
-  
-  </article>
-
     
   </div>
-
-  
 
 
           </div>
@@ -401,6 +302,11 @@
 
   <aside class="sidebar">
     <div class="sidebar-inner">
+        
+        
+        
+        
+      
 
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc">
