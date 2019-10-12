@@ -18,7 +18,7 @@
 
 <link rel="stylesheet" href="/ruby-.github.io/css/main.css?v=7.4.0">
 
-
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Play:300,300italic,400,400italic,700,700italic|Press Start 2P:300,300italic,400,400italic,700,700italic|Anonymous Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/ruby-.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
 
 
@@ -267,7 +267,7 @@
               2 categories in total
             </div>
             <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/ruby-.github.io/categories/edge/">edge</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/ruby-.github.io/categories/k8s/">k8s</a><span class="category-list-count">1</span></li></ul>
+              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/ruby-.github.io/categories/edge-computing/">edge computing</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/ruby-.github.io/categories/k8s/">k8s</a><span class="category-list-count">1</span></li></ul>
             </div>
           </div>
         
@@ -286,6 +286,9 @@
 
           </div>
           
+    
+    <div class="comments" id="gitalk-container"></div>
+  
 
         </div>
           
@@ -333,7 +336,7 @@
         
           <a href="/ruby-.github.io/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -409,14 +412,14 @@
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">8k</span>
+    <span title="Symbols count total">19k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">7 mins.</span>
+    <span title="Reading time total">18 mins.</span>
 </div>
 
         
@@ -481,6 +484,25 @@
   
 
   
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'e6801dba21d5153fca76',
+      clientSecret: '2b1f89619ca1f0c197aea0e432c0c71b9008946c',
+      repo: 'https://github.com/ruby-/gitalk-comments-base.git',
+      owner: 'ruby-',
+      admin: ['ruby-'],
+      id: '1a564fdb0fcc92bfdf637e5399566d15',
+        language: 'en',
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
 
 
     <!-- 页面点击小红心 -->

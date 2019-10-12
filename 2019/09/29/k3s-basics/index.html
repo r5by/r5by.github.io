@@ -18,7 +18,7 @@
 
 <link rel="stylesheet" href="/ruby-.github.io/css/main.css?v=7.4.0">
 
-
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Play:300,300italic,400,400italic,700,700italic|Press Start 2P:300,300italic,400,400italic,700,700italic|Anonymous Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/ruby-.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
 
 
@@ -56,18 +56,18 @@
   };
 </script>
 
-  <meta name="description" content="My First Impression on K3SMotivationIn order to work on k3s project, one needs to learn to use it at first. This post summarize the main steps of deploying k3s on my local environment, and how to setu">
+  <meta name="description" content="This post explains my first impression with k3s.MotivationIn order to work on k3s project, one needs to learn to use it at first. This post summarize the main steps of deploying k3s in our local lab e">
 <meta name="keywords" content="k3s, k8s">
 <meta property="og:type" content="article">
-<meta property="og:title" content="k3s-basics">
+<meta property="og:title" content="k3s Basics">
 <meta property="og:url" content="https://ruby-.github.io/2019/09/29/k3s-basics/index.html">
 <meta property="og:site_name" content="Ruby-&#39;s Blog">
-<meta property="og:description" content="My First Impression on K3SMotivationIn order to work on k3s project, one needs to learn to use it at first. This post summarize the main steps of deploying k3s on my local environment, and how to setu">
+<meta property="og:description" content="This post explains my first impression with k3s.MotivationIn order to work on k3s project, one needs to learn to use it at first. This post summarize the main steps of deploying k3s in our local lab e">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-01T13:56:24.000Z">
+<meta property="og:updated_time" content="2019-10-12T22:09:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="k3s-basics">
-<meta name="twitter:description" content="My First Impression on K3SMotivationIn order to work on k3s project, one needs to learn to use it at first. This post summarize the main steps of deploying k3s on my local environment, and how to setu">
+<meta name="twitter:title" content="k3s Basics">
+<meta name="twitter:description" content="This post explains my first impression with k3s.MotivationIn order to work on k3s project, one needs to learn to use it at first. This post summarize the main steps of deploying k3s in our local lab e">
   <link rel="canonical" href="https://ruby-.github.io/2019/09/29/k3s-basics/">
 
 
@@ -82,7 +82,7 @@
   };
 </script>
 
-  <title>k3s-basics | Ruby-'s Blog</title>
+  <title>k3s Basics | Ruby-'s Blog</title>
   
 
 
@@ -249,7 +249,7 @@
       <meta itemprop="name" content="Ruby-'s Blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">k3s-basics
+        <h1 class="post-title" itemprop="name headline">k3s Basics
 
           
         </h1>
@@ -276,7 +276,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-10-01 08:56:24" itemprop="dateModified" datetime="2019-10-01T08:56:24-05:00">2019-10-01</time>
+                <time title="Modified: 2019-10-12 17:09:41" itemprop="dateModified" datetime="2019-10-12T17:09:41-05:00">2019-10-12</time>
               </span>
             
           
@@ -286,7 +286,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ruby-.github.io/categories/edge/" itemprop="url" rel="index"><span itemprop="name">edge</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/ruby-.github.io/categories/edge-computing/" itemprop="url" rel="index"><span itemprop="name">edge computing</span></a></span>
 
                 
                 
@@ -303,7 +303,7 @@
               
                 <span class="post-meta-item-text">Symbols count in article: </span>
               
-              <span>3.5k</span>
+              <span>5.7k</span>
             </span>
           
             <span class="post-meta-item" title="Reading time">
@@ -313,7 +313,7 @@
               
                 <span class="post-meta-item-text">Reading time &asymp;</span>
               
-              <span>3 mins.</span>
+              <span>5 mins.</span>
             </span>
           
 
@@ -326,8 +326,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="My-First-Impression-on-K3S"><a href="#My-First-Impression-on-K3S" class="headerlink" title="My First Impression on K3S"></a>My First Impression on K3S</h1><h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>In order to work on k3s project, one needs to learn to use it at first. This post summarize the main steps of deploying <a href="https://github.com/rancher/k3s" target="_blank" rel="noopener">k3s</a> on my local environment, and how to setup the development environment.</p><a id="more"></a>
-<h2 id="Running-Environment-Setup"><a href="#Running-Environment-Setup" class="headerlink" title="Running Environment Setup"></a>Running Environment Setup</h2><p>The basic hardware setup is as the same as my last post on k8s demo (3 VMs).</p>
+        <p>This post explains my first impression with <strong>k3s</strong>.</p><h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>In order to work on k3s project, one needs to learn to use it at first. This post summarize the main steps of deploying <a href="https://github.com/rancher/k3s" target="_blank" rel="noopener">k3s</a> in our local lab environment and also on AWS EC2.</p><a id="more"></a>
+
+<h2 id="Local-k3s-cluster-Setup"><a href="#Local-k3s-cluster-Setup" class="headerlink" title="Local k3s cluster Setup"></a>Local k3s cluster Setup</h2><p>The basic hardware setup for this demo is as the same as the last post on k8s demo (3 VMs), feel free to apply the following methods with the latest released k3s on your own Raspbian nodes, it should work as we also tested it. However, the latest released version (0.9.1 at the time of this post) of k3s has some ca-related issues for an agent to join the master node (if a full ca-enabled Kubernetes cluster has been configured on these nodes), thus an earlier release version (0.2.0) was used for this section.</p>
 <h3 id="Step-1-Stop-the-previously-installed-k8s-related-services-optional"><a href="#Step-1-Stop-the-previously-installed-k8s-related-services-optional" class="headerlink" title="Step 1: Stop the previously installed k8s related services (optional)"></a>Step 1: Stop the previously installed k8s related services (optional)</h3><p>On master node:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">service kube-calico stop</span><br><span class="line">service kube-scheduler stop</span><br><span class="line">service kube-controller-manager stop</span><br><span class="line">service kube-apiserver stop</span><br><span class="line">service etcd stop &amp;&amp; rm -fr /var/lib/etcd/*</span><br></pre></td></tr></table></figure>
 
@@ -335,11 +336,11 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">service kubelet stop &amp;&amp; rm -fr /var/lib/kubelet/*</span><br><span class="line">service kube-proxy stop &amp;&amp; rm -fr /var/lib/kube-proxy/*</span><br><span class="line">service kube-calico stop</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>Here I simply turn k8s off to avoid potential conflicts between k8s and k3s deployment. However this is just my assumption, they may perfectly work together after all.</p>
+<p>Here I simply turn k8s off to avoid potential conflicts between k8s and k3s deployment. However this doesn’t prevent the ca issue for latest k3s releases (&gt;v0.2.0) to work with previously installed k8s environment.</p>
 </blockquote>
-<h3 id="Step-2-Deploy-k3s-on-each-node"><a href="#Step-2-Deploy-k3s-on-each-node" class="headerlink" title="Step 2: Deploy k3s on each node"></a>Step 2: Deploy k3s on each node</h3><p>To install k3s is quite simple, we will use the following commands install and start k3s on master and two worker machines separately.</p>
+<h3 id="Step-2-Deploy-k3s-on-each-node"><a href="#Step-2-Deploy-k3s-on-each-node" class="headerlink" title="Step 2: Deploy k3s on each node"></a>Step 2: Deploy k3s on each node</h3><p>To install k3s is quite simple, we will use the following commands install and start k3s on master and two worker machines separately. </p>
 <p>On master node:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install k3s with rancher script</span></span><br><span class="line"><span class="comment"># The script download the binaries, pull the images (containerd) and enable/start the k3s-related systemctl services</span></span><br><span class="line">mkdir k3s</span><br><span class="line"></span><br><span class="line"><span class="comment"># With INSTALL_K3S_EXEC="--disable-agent" option, one may launch k3s server on the node without an agent (which may cause some issues with current release of k3s)</span></span><br><span class="line">curl -sfL https://get.k3s.io | INSTALL_K3S_BIN_DIR=<span class="string">"/home/main/k3s"</span> INSTALL_K3S_VERSION=<span class="string">"v0.1.0"</span>  sh -</span><br><span class="line"></span><br><span class="line"><span class="comment"># Verify the k3s system services are listening on their ports</span></span><br><span class="line">netstat -nltp</span><br><span class="line"></span><br><span class="line"><span class="comment"># Verify the k3s cluster status</span></span><br><span class="line">systemctl status k3s</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Install k3s with rancher script</span></span><br><span class="line"><span class="comment"># The script download the binaries, pull the images (containerd) and enable/start the k3s-related systemctl services</span></span><br><span class="line">mkdir k3s</span><br><span class="line"></span><br><span class="line"><span class="comment"># With INSTALL_K3S_EXEC="--disable-agent" option, one may launch k3s server on the node without an agent (which may cause some issues with current release of k3s)</span></span><br><span class="line">curl -sfL https://get.k3s.io | INSTALL_K3S_BIN_DIR=<span class="string">"/home/main/k3s"</span> INSTALL_K3S_VERSION=<span class="string">"v0.2.0"</span>  sh -</span><br><span class="line"></span><br><span class="line"><span class="comment"># Verify the k3s system services are listening on their ports</span></span><br><span class="line">netstat -nltp</span><br><span class="line"></span><br><span class="line"><span class="comment"># Verify the k3s cluster status</span></span><br><span class="line">systemctl status k3s</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>On master node, one should see services and their port numbers: <em>k3s : 6443/6444, 10251/10252</em></p>
@@ -351,10 +352,10 @@
 <p>With out the INSTALL_K3S_BIN_DIR option, k3s will be installed at /usr/local/bin</p>
 </blockquote>
 <p>Now, in order to join new workers to this master node, one needs first grab the token on that (master) node:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /var/lib/rancher/k3s/server/node-token</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Example output: K10af00f60b1fa01b0a413e78922fd79efad2528bc4b0d19a357b5e2650d84252c5::node:f06ab2ff7068846d6b18b342f5f6a1bb</span></span><br><span class="line">cat /var/lib/rancher/k3s/server/node-token</span><br></pre></td></tr></table></figure>
 
 <p>On worker nodes:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mkdir k3s</span><br><span class="line"></span><br><span class="line"><span class="comment"># download &amp; active the k3s-agent service</span></span><br><span class="line">curl -sfL https://get.k3s.io | INSTALL_K3S_BIN_DIR=<span class="string">"/home/main/k3s"</span> INSTALL_K3S_VERSION=<span class="string">"v0.1.0"</span> K3S_TOKEN=<span class="string">"K1069e9389280a39cfeefb5b17cc43bee8c1a357946fb40c0b5734d6226be4c2eb6::node:2c22cc54a2816ea6d01da73ab56e26b3"</span> K3S_URL=<span class="string">"https://192.168.56.103:6443"</span> sh -</span><br><span class="line"></span><br><span class="line"><span class="comment"># check the service status</span></span><br><span class="line">systemctl status k3s-agent</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mkdir k3s</span><br><span class="line"></span><br><span class="line"><span class="comment"># download &amp; active the k3s-agent service</span></span><br><span class="line">curl -sfL https://get.k3s.io | INSTALL_K3S_BIN_DIR=<span class="string">"/home/main/k3s"</span> INSTALL_K3S_VERSION=<span class="string">"v0.2.0"</span> K3S_TOKEN=<span class="string">"K10af00f60b1fa01b0a413e78922fd79efad2528bc4b0d19a357b5e2650d84252c5::node:f06ab2ff7068846d6b18b342f5f6a1bb"</span> K3S_URL=<span class="string">"https://192.168.56.103:6443"</span> sh -</span><br><span class="line"></span><br><span class="line"><span class="comment"># check the service status</span></span><br><span class="line">systemctl status k3s-agent</span><br></pre></td></tr></table></figure>
 
 <p>The installation of k3s agent on worker nodes looks like this:</p>
 <figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── crictl -&gt; k3s</span><br><span class="line">├── k3s</span><br><span class="line">├── k3s-agent-uninstall.sh</span><br><span class="line">└── k3s-killall.sh</span><br></pre></td></tr></table></figure>
@@ -363,11 +364,57 @@
 <p>On worker node, k3s has services and ports: <em>k3s : 42323, containerd : 10010</em></p>
 </blockquote>
 <p>Now on the master node, one should be able to verify the newly added cluster resources:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">k3s kubectl get nodes</span><br><span class="line"></span><br><span class="line"><span class="comment"># Kill k3s services after inspection (on each node)</span></span><br><span class="line">k3s-killall.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># Uninstall k3s on master</span></span><br><span class="line">k3s-uninstall.sh</span><br><span class="line"><span class="comment"># Uninstall k3s on worker nodes</span></span><br><span class="line">k3s-agent-uninstall.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Now verify the newly added worker in the cluster</span></span><br><span class="line">k3s kubectl get nodes</span><br><span class="line"></span><br><span class="line"><span class="comment">## Do some deployment here...</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Clean-up</span></span><br><span class="line"><span class="comment"># Kill k3s services after inspection (on each node)</span></span><br><span class="line">k3s-killall.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># Uninstall k3s on master</span></span><br><span class="line">k3s-uninstall.sh</span><br><span class="line"><span class="comment"># Uninstall k3s on worker nodes</span></span><br><span class="line">k3s-agent-uninstall.sh</span><br></pre></td></tr></table></figure>
 
-<h2 id="Dev-Environment-Setup"><a href="#Dev-Environment-Setup" class="headerlink" title="Dev Environment Setup"></a>Dev Environment Setup</h2><p>To be continued…</p>
-<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Ranger k3s is much smaller and easier to deploy compared to Kubernetes. The new version (0.8.3 due to the time of this post) of k3s has some problems with the joining of an agent to the master node, thus the first release version (0.1.0) was used in this demo, later I’ll test to see a newer version that doesn’t have the problem and switch my dev environment onto that branch.</p>
-<p>In summery, k3s is lightweight and thus better fit for our research on edge computing in favor of time compared to k8s. </p>
+<h2 id="Install-k3s-manually-on-EC2-instances"><a href="#Install-k3s-manually-on-EC2-instances" class="headerlink" title="Install k3s manually on EC2 instances"></a>Install k3s manually on EC2 instances</h2><p>This section explains how to manually download k3s binaries from rancher’s official release and cluster-up. Here we use AWS EC2 service as following configuration:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Instance OS</th>
+<th align="center">Arch</th>
+<th align="center">IP (internal)</th>
+<th align="center">Instance Type</th>
+<th align="center">vCPU</th>
+<th align="center">Memory</th>
+<th align="center">Node Role</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Ubuntu Server 18.04 LTS (HVM), SSD Volume Type</td>
+<td align="center">amd64(x86_64)</td>
+<td align="center">172.31.46.70</td>
+<td align="center">t2.medium</td>
+<td align="center">2</td>
+<td align="center">4GiB</td>
+<td align="center">master</td>
+</tr>
+<tr>
+<td align="center">Amazon Linux 2 AMI (HVM), SSD Volume Type</td>
+<td align="center">arm64(aarch64)</td>
+<td align="center">172.31.36.129</td>
+<td align="center">a1.medium</td>
+<td align="center">1</td>
+<td align="center">2GiB</td>
+<td align="center">worker</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Remember to allow all traffic from anywhere in your security group setting.</p>
+</blockquote>
+<p>First, let us <code>ssh</code> to each running instance and prepare the k3s executable</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Change to your own pem key file and instance address:</span></span><br><span class="line">ssh -i ~/.ssh/your-key.pem ubuntu@ec2-x-x-x-x.region.compute.amazonaws.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># Prepare download folder</span></span><br><span class="line">mkdir k3s</span><br><span class="line"><span class="built_in">cd</span> k3s</span><br><span class="line"></span><br><span class="line"><span class="comment">## Download the desired release version from: https://github.com/rancher/k3s/releases?after=v0.10.0-alpha1</span></span><br><span class="line"><span class="comment"># On master (x86_64)</span></span><br><span class="line">wget https://github.com/rancher/k3s/releases/download/v0.9.1/k3s</span><br><span class="line"><span class="comment"># On worker (arm)</span></span><br><span class="line">wget https://github.com/rancher/k3s/releases/download/v0.9.1/k3s-arm64</span><br><span class="line">mv k3s-arm64 k3s</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add exec mode</span></span><br><span class="line">chmod +x k3s</span><br></pre></td></tr></table></figure>
+
+<p>On master node:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Start k3s server</span></span><br><span class="line">./k3s server &gt; server.log 2&gt;&amp;1 &amp;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get token copy-and-paste the output to your worker:</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"export node_token=<span class="variable">$(cat /var/lib/rancher/k3s/server/node-token)</span>"</span></span><br></pre></td></tr></table></figure>
+
+<p>On worker node:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># copy-and-paste token from master here</span></span><br><span class="line"><span class="built_in">export</span> node_token=...</span><br><span class="line"></span><br><span class="line"><span class="comment"># Start agent, pass server url and token</span></span><br><span class="line">./k3s agent --server https://172.31.46.70:6443 --token <span class="string">"<span class="variable">$node_token</span>"</span> &gt;&amp; k3s-agent.log &amp;</span><br></pre></td></tr></table></figure>
+
+<p>After a little while, check the cluster info with <code>k3s kubectl</code> command described in last section on the master node.</p>
+<blockquote>
+<p>Simply kill the PID to stop k3s or k3s-agent in the demo to shut down the cluster after inspection.</p>
+</blockquote>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>Ranger k3s is much smaller and easier to deploy compared to Kubernetes, and it requires less effort and resources to set up. In next post, we will discuss how to set-up a development environment on k3s and dive deeper to learn k3s from its source code.</p>
 
     </div>
 
@@ -393,8 +440,8 @@
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
               
-                <a href="/ruby-.github.io/2019/09/17/k8s-basics/" rel="next" title="k8s-basics">
-                  <i class="fa fa-chevron-left"></i> k8s-basics
+                <a href="/ruby-.github.io/2019/09/17/k8s-basics/" rel="next" title="k8s Basics">
+                  <i class="fa fa-chevron-left"></i> k8s Basics
                 </a>
               
             </div>
@@ -402,6 +449,10 @@
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
+              
+                <a href="/ruby-.github.io/2019/10/10/k3s-dev-1-env-setup/" rel="prev" title="k3s Dev (1) Environment Setup">
+                  k3s Dev (1) Environment Setup <i class="fa fa-chevron-right"></i>
+                </a>
               
             </div>
           </div>
@@ -419,6 +470,9 @@
 
           </div>
           
+    
+    <div class="comments" id="gitalk-container"></div>
+  
 
         </div>
           
@@ -450,7 +504,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#My-First-Impression-on-K3S"><span class="nav-number">1.</span> <span class="nav-text">My First Impression on K3S</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Motivation"><span class="nav-number">1.1.</span> <span class="nav-text">Motivation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Running-Environment-Setup"><span class="nav-number">1.2.</span> <span class="nav-text">Running Environment Setup</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-1-Stop-the-previously-installed-k8s-related-services-optional"><span class="nav-number">1.2.1.</span> <span class="nav-text">Step 1: Stop the previously installed k8s related services (optional)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-2-Deploy-k3s-on-each-node"><span class="nav-number">1.2.2.</span> <span class="nav-text">Step 2: Deploy k3s on each node</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dev-Environment-Setup"><span class="nav-number">1.3.</span> <span class="nav-text">Dev Environment Setup</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">1.4.</span> <span class="nav-text">Conclusion</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Motivation"><span class="nav-number">1.</span> <span class="nav-text">Motivation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Local-k3s-cluster-Setup"><span class="nav-number">2.</span> <span class="nav-text">Local k3s cluster Setup</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-1-Stop-the-previously-installed-k8s-related-services-optional"><span class="nav-number">2.1.</span> <span class="nav-text">Step 1: Stop the previously installed k8s related services (optional)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Step-2-Deploy-k3s-on-each-node"><span class="nav-number">2.2.</span> <span class="nav-text">Step 2: Deploy k3s on each node</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Install-k3s-manually-on-EC2-instances"><span class="nav-number">3.</span> <span class="nav-text">Install k3s manually on EC2 instances</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">4.</span> <span class="nav-text">Conclusion</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -468,7 +522,7 @@
         
           <a href="/ruby-.github.io/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -544,14 +598,14 @@
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">8k</span>
+    <span title="Symbols count total">19k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">7 mins.</span>
+    <span title="Reading time total">18 mins.</span>
 </div>
 
         
@@ -616,6 +670,25 @@
   
 
   
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'e6801dba21d5153fca76',
+      clientSecret: '2b1f89619ca1f0c197aea0e432c0c71b9008946c',
+      repo: 'https://github.com/ruby-/gitalk-comments-base.git',
+      owner: 'ruby-',
+      admin: ['ruby-'],
+      id: '1e6ad00de4de10ba43fb024e8cd45dfd',
+        language: 'en',
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
 
 
     <!-- 页面点击小红心 -->

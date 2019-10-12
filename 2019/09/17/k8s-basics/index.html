@@ -18,7 +18,7 @@
 
 <link rel="stylesheet" href="/ruby-.github.io/css/main.css?v=7.4.0">
 
-
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Play:300,300italic,400,400italic,700,700italic|Press Start 2P:300,300italic,400,400italic,700,700italic|Anonymous Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/ruby-.github.io/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
 
 
@@ -56,18 +56,18 @@
   };
 </script>
 
-  <meta name="description" content="Demo of Kubernetes BasicsServer OverviewWe have setup 3 virtual machines，each has 1 cpu and 1GB memory. Details：    Server OS IP Address Node Type CPU Memory Hostname    ubuntu16.04 192.168.56.103 mas">
+  <meta name="description" content="This post demonstrate some Kubernetes basic commends. Server OverviewWe have setup 3 virtual machines，each has 1 cpu and 1GB memory. Details：    Server OS IP Address Node Type CPU Memory Hostname    u">
 <meta name="keywords" content="k8s, demo">
 <meta property="og:type" content="article">
-<meta property="og:title" content="k8s-basics">
+<meta property="og:title" content="k8s Basics">
 <meta property="og:url" content="https://ruby-.github.io/2019/09/17/k8s-basics/index.html">
 <meta property="og:site_name" content="Ruby-&#39;s Blog">
-<meta property="og:description" content="Demo of Kubernetes BasicsServer OverviewWe have setup 3 virtual machines，each has 1 cpu and 1GB memory. Details：    Server OS IP Address Node Type CPU Memory Hostname    ubuntu16.04 192.168.56.103 mas">
+<meta property="og:description" content="This post demonstrate some Kubernetes basic commends. Server OverviewWe have setup 3 virtual machines，each has 1 cpu and 1GB memory. Details：    Server OS IP Address Node Type CPU Memory Hostname    u">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-09-18T17:48:11.000Z">
+<meta property="og:updated_time" content="2019-10-12T22:10:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="k8s-basics">
-<meta name="twitter:description" content="Demo of Kubernetes BasicsServer OverviewWe have setup 3 virtual machines，each has 1 cpu and 1GB memory. Details：    Server OS IP Address Node Type CPU Memory Hostname    ubuntu16.04 192.168.56.103 mas">
+<meta name="twitter:title" content="k8s Basics">
+<meta name="twitter:description" content="This post demonstrate some Kubernetes basic commends. Server OverviewWe have setup 3 virtual machines，each has 1 cpu and 1GB memory. Details：    Server OS IP Address Node Type CPU Memory Hostname    u">
   <link rel="canonical" href="https://ruby-.github.io/2019/09/17/k8s-basics/">
 
 
@@ -82,7 +82,7 @@
   };
 </script>
 
-  <title>k8s-basics | Ruby-'s Blog</title>
+  <title>k8s Basics | Ruby-'s Blog</title>
   
 
 
@@ -249,7 +249,7 @@
       <meta itemprop="name" content="Ruby-'s Blog">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">k8s-basics
+        <h1 class="post-title" itemprop="name headline">k8s Basics
 
           
         </h1>
@@ -276,7 +276,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-09-18 12:48:11" itemprop="dateModified" datetime="2019-09-18T12:48:11-05:00">2019-09-18</time>
+                <time title="Modified: 2019-10-12 17:10:19" itemprop="dateModified" datetime="2019-10-12T17:10:19-05:00">2019-10-12</time>
               </span>
             
           
@@ -326,7 +326,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="Demo-of-Kubernetes-Basics"><a href="#Demo-of-Kubernetes-Basics" class="headerlink" title="Demo of Kubernetes Basics"></a>Demo of Kubernetes Basics</h1><h2 id="Server-Overview"><a href="#Server-Overview" class="headerlink" title="Server Overview"></a>Server Overview</h2><p>We have setup 3 virtual machines，each has 1 cpu and 1GB memory. Details：</p>
+        <p>This post demonstrate some Kubernetes basic commends.</p>
+<h2 id="Server-Overview"><a href="#Server-Overview" class="headerlink" title="Server Overview"></a>Server Overview</h2><p>We have setup 3 virtual machines，each has 1 cpu and 1GB memory. Details：</p>
 <table>
 <thead>
 <tr>
@@ -431,8 +432,8 @@
 
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/ruby-.github.io/2019/09/29/k3s-basics/" rel="prev" title="k3s-basics">
-                  k3s-basics <i class="fa fa-chevron-right"></i>
+                <a href="/ruby-.github.io/2019/09/29/k3s-basics/" rel="prev" title="k3s Basics">
+                  k3s Basics <i class="fa fa-chevron-right"></i>
                 </a>
               
             </div>
@@ -451,6 +452,9 @@
 
           </div>
           
+    
+    <div class="comments" id="gitalk-container"></div>
+  
 
         </div>
           
@@ -482,7 +486,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Demo-of-Kubernetes-Basics"><span class="nav-number">1.</span> <span class="nav-text">Demo of Kubernetes Basics</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-Overview"><span class="nav-number">1.1.</span> <span class="nav-text">Server Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Startup-all-nodes"><span class="nav-number">1.2.</span> <span class="nav-text">Startup all nodes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Launch-VirtualBox"><span class="nav-number">1.2.1.</span> <span class="nav-text">Launch VirtualBox</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Login-to-each-node"><span class="nav-number">1.2.2.</span> <span class="nav-text">Login to each node</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Check-system-information-on-each-node"><span class="nav-number">1.2.3.</span> <span class="nav-text">Check system information on each node</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Commonly-used-commands"><span class="nav-number">1.3.</span> <span class="nav-text">Commonly used commands</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-calico-to-check-the-network-status-on-each-node"><span class="nav-number">1.3.1.</span> <span class="nav-text">Use calico to check the network status on each node</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-kubectl-on-master-node-to-verify-the-cluster-resources-deloyment-nodes-pods-services-etc"><span class="nav-number">1.3.2.</span> <span class="nav-text">Use kubectl on master node to verify the cluster resources (deloyment, nodes, pods, services, etc.)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#More-kubectl-commands"><span class="nav-number">1.3.3.</span> <span class="nav-text">More kubectl commands</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-‘apply’-or-‘create’-with-yaml-files"><span class="nav-number">1.3.4.</span> <span class="nav-text">Use ‘apply’ or ‘create’ with yaml files</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recommended-references"><span class="nav-number">1.4.</span> <span class="nav-text">Recommended references</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Server-Overview"><span class="nav-number">1.</span> <span class="nav-text">Server Overview</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Startup-all-nodes"><span class="nav-number">2.</span> <span class="nav-text">Startup all nodes</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Launch-VirtualBox"><span class="nav-number">2.1.</span> <span class="nav-text">Launch VirtualBox</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Login-to-each-node"><span class="nav-number">2.2.</span> <span class="nav-text">Login to each node</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Check-system-information-on-each-node"><span class="nav-number">2.3.</span> <span class="nav-text">Check system information on each node</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Commonly-used-commands"><span class="nav-number">3.</span> <span class="nav-text">Commonly used commands</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-calico-to-check-the-network-status-on-each-node"><span class="nav-number">3.1.</span> <span class="nav-text">Use calico to check the network status on each node</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-kubectl-on-master-node-to-verify-the-cluster-resources-deloyment-nodes-pods-services-etc"><span class="nav-number">3.2.</span> <span class="nav-text">Use kubectl on master node to verify the cluster resources (deloyment, nodes, pods, services, etc.)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#More-kubectl-commands"><span class="nav-number">3.3.</span> <span class="nav-text">More kubectl commands</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-‘apply’-or-‘create’-with-yaml-files"><span class="nav-number">3.4.</span> <span class="nav-text">Use ‘apply’ or ‘create’ with yaml files</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recommended-references"><span class="nav-number">4.</span> <span class="nav-text">Recommended references</span></a></li></ol></div>
         
       </div>
       <!--/noindex-->
@@ -500,7 +504,7 @@
         
           <a href="/ruby-.github.io/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -576,14 +580,14 @@
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">8k</span>
+    <span title="Symbols count total">19k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">7 mins.</span>
+    <span title="Reading time total">18 mins.</span>
 </div>
 
         
@@ -648,6 +652,25 @@
   
 
   
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID: 'e6801dba21d5153fca76',
+      clientSecret: '2b1f89619ca1f0c197aea0e432c0c71b9008946c',
+      repo: 'https://github.com/ruby-/gitalk-comments-base.git',
+      owner: 'ruby-',
+      admin: ['ruby-'],
+      id: 'ef9ccded332d78dacbd3fd45a2678d5f',
+        language: 'en',
+      
+      distractionFreeMode: 'true'
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+</script>
 
 
     <!-- 页面点击小红心 -->
