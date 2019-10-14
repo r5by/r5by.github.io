@@ -23,7 +23,7 @@ window.onload = function(){
         drops.push(0);
     }
     //运动的文字
-    var str ="WELCOME TO WWW.ITRHX.COM";
+    var str ="welcome to ruby-.github.io/";
     //4:fillText(str,x,y);原理就是去更改y的坐标位置
     //绘画的函数
     function draw(){
@@ -52,6 +52,7 @@ window.onload = function(){
         var b = Math.floor(Math.random() * 256);
         return "rgb("+r+","+g+","+b+")";
     }
+
     draw();
     setInterval(draw,35);
 };
