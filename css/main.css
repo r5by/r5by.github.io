@@ -474,7 +474,7 @@ pre,
 }
 pre,
 code {
-  font-family: 'Source Code Pro', consolas, Menlo, "PingFang SC", "Microsoft YaHei", monospace;
+  font-family: 'Share Tech Mono', consolas, Menlo, "PingFang SC", "Microsoft YaHei", monospace;
 }
 code {
   overflow-wrap: break-word;
@@ -1682,7 +1682,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #7d7d0e;
+  background: #ffe76c;
 }
 .feed-link,
 .chat {
@@ -2577,6 +2577,10 @@ embed {
 .sidebar-toggle {
   margin-bottom: 18px;
 }
+.site-subtitle {
+  color: #fff;
+  text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #fff, 0 0 150px #0ff;
+}
 .site-title:hover,
 .post-title:hover {
   animation: shake-it 0.5s reverse infinite cubic-bezier(0.68, -0.55, 0.27, 1.55);
@@ -2605,9 +2609,6 @@ embed {
 .content-wrap {
   background: #fff;
   opacity: 0.95;
-}
-.site-subtitle {
-  color: #af4b57;
 }
 rain {
   height: 100%;
