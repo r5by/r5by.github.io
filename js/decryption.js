@@ -115,60 +115,58 @@ async function decryptText (el, text, glitches,
 
 /* Mouse enter&leave effect */
 let glitch_it = document.getElementById("glitch_this");
-// glitch_it.addEventListener("mouseenter", function( event ) {   
+glitch_it.addEventListener("mouseenter", function( event ) {   
+  switch(random(0, 3)) {
+            case 0:
+              decryptText(glitch_this, '在地球尋求邂逅是否搞錯了什麼');
+            break;
+            case 1:
+              decryptText(glitch_this, 'Re：从零开始的程序猿生活');
+            break;
+            case 2:
+              decryptText(glitch_this, '為美好的世界獻上bug！');
+            break;
+            default:
+              decryptText(glitch_this, '這個攻城獅明明超強卻過分慎重');
+  }
+}, false);
 
-//           switch(random(0, 6)) {
-//                     case 0:
-//                       decryptText(glitch_this, '在地球尋求邂逅是否搞錯了什麼');
-//                     break;
-//                     case 1:
-//                       decryptText(glitch_this, 'Re：从零开始的程序猿生活');
-//                     break;
-//                     case 2:
-//                       decryptText(glitch_this, '為美好的世界獻上bug！');
-//                     break;
-//                     case 3:
-//                     decryptText(glitch_this, '(๑•́ ₃ •̀๑)');
-//                     break;
-//                     case 4:
-//                     decryptText(glitch_this, '✿◡‿◡');
-//                     break;
-//                     case 5:
-//                     decryptText(glitch_this, '(ง •̀_•́)ง');
-//                     break;
-//                     default:
-//                       decryptText(glitch_this, '這個攻城獅明明超強卻過分慎重');
-//           }
-// }, false);
-
-// test.addEventListener("mouseleave", function( event ) {   
-//           decryptText(glitch_this, 'Welcome'); //reset
-// }, false);
+glitch_it.addEventListener("mouseleave", function( event ) {   
+  switch(random(0, 2)) {
+    case 0:
+    decryptText(glitch_this, '(๑•́ ₃ •̀๑)');
+    break;
+    case 1:
+    decryptText(glitch_this, '✿◡‿◡');
+    break;
+    default:
+      decryptText(glitch_this, '(ง •̀_•́)ง');
+  }
+}, false);
 
 /* Mouse hover effect */
-glitch_it.addEventListener("mouseover", function( event ) {   
-  
-          switch(random(0, 6)) {
-                    case 0:
-                      decryptText(glitch_this, '在地球尋求邂逅是否搞錯了什麼');
-                    break;
-                    case 1:
-                      decryptText(glitch_this, 'Re：从零开始的庶民生活');
-                    break;
-                    case 2:
-                      decryptText(glitch_this, '為美好的世界獻上bug！');
-                    break;
-                    case 3:
-                    decryptText(glitch_this, '(๑•́ ₃ •̀๑)');
-                    break;
-                    case 4:
-                    decryptText(glitch_this, '✿◡‿◡');
-                    break;
-                    case 5:
-                    decryptText(glitch_this, '(ง •̀_•́)ง');
-                    break;
-                    default:
-                      decryptText(glitch_this, '這個gopher明明超強卻過分慎重');
-          }
-}, false);
+// glitch_it.addEventListener("mouseover", function( event ) {
+//   switch(random(0, 2)) {
+//             case 0:
+//               decryptText(glitch_this, '在地球尋求邂逅是否搞錯了什麼？！');
+//             break;
+//             case 1:
+//               decryptText(glitch_this, 'Re：从零开始的碼農生活。');
+//             break;
+//             case 2:
+//               decryptText(glitch_this, '為美好的世界獻上bug！');
+//             break;
+//             case 3:
+//             decryptText(glitch_this, '(๑•́ ₃ •̀๑)');
+//             break;
+//             case 4:
+//             decryptText(glitch_this, '✿◡‿◡');
+//             break;
+//             case 5:
+//             decryptText(glitch_this, '(ง •̀_•́)ง');
+//             break;
+//             default:
+//               decryptText(glitch_this, '這個gopher明明超強卻過分慎重！');
+//   }
+// }, false);
           

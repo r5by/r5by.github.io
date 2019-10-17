@@ -67,7 +67,7 @@
 <meta property="og:locale" content="zh-CN, en, default">
 <meta property="og:image" content="https://drive.google.com/uc?export=view&id=1VTjvnD_Fi3o1kGt3hc_o-IyeubWb5bTX">
 <meta property="og:image" content="https://drive.google.com/uc?export=view&id=1Yf24i0WFEMJR-mnvyOg79X_xcnqx_06t">
-<meta property="og:updated_time" content="2019-10-12T22:45:59.000Z">
+<meta property="og:updated_time" content="2019-10-16T20:27:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="k3s Dev (1) Environment Setup">
 <meta name="twitter:description" content="This post shows in steps how to set up a dev environment for k3s project. Step 1. PreparationThe following list shows my local development environment setup: For code review &amp;amp; build purpose:  OS:">
@@ -142,8 +142,8 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
+        <!-- subtitle text changing effect: add id="glitch_this" -->
         <p class="site-subtitle" id="glitch_this">Welcome</p> 
-        <!-- <div class="text" id="glitch_this">Welcome</div> -->
       
   </div>
 
@@ -294,7 +294,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-12 17:45:59" itemprop="dateModified" datetime="2019-10-12T17:45:59-05:00">2019-10-12</time>
+                <time title="Modified: 2019-10-16 15:27:40" itemprop="dateModified" datetime="2019-10-16T15:27:40-05:00">2019-10-16</time>
               </span>
             
           
@@ -372,7 +372,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo netplan apply</span><br><span class="line"></span><br><span class="line"><span class="comment"># Test connectivity</span></span><br><span class="line">ping 192.168.56.101 <span class="comment"># another virtual machine</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Test installing k3s</span></span><br><span class="line">curl -sfL https://get.k3s.io | INSTALL_K3S_BIN_DIR=<span class="string">"/home/main/k3s"</span> sh -</span><br></pre></td></tr></table></figure>
 
 <h3 id="1-2-Golang-Environment"><a href="#1-2-Golang-Environment" class="headerlink" title="1.2 Golang Environment"></a>1.2 Golang Environment</h3><p>For Mac OS users, I recommend use <code>homebrew</code> to manage go environment. However, go has its own version manager called GVM, refer <a href="https://github.com/moovweb/gvm" target="_blank" rel="noopener">here</a> for detailed information. To use earlier version of go, add following to your <code>.bashrc</code> file:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># homebrew go version config </span></span><br><span class="line"><span class="function"><span class="title">goconfig</span></span>() &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="keyword">in</span></span><br><span class="line">        <span class="string">"1.12"</span>)</span><br><span class="line">            brew switch go 1.12.7</span><br><span class="line">            <span class="built_in">export</span> GOROOT=/usr/<span class="built_in">local</span>/Cellar/go/1.12.7/libexec</span><br><span class="line">            ;;</span><br><span class="line">        <span class="string">"1.13"</span>)</span><br><span class="line">            brew switch go 1.13</span><br><span class="line">            <span class="built_in">export</span> GOROOT=/usr/<span class="built_in">local</span>/Cellar/go/1.13/libexec</span><br><span class="line">            ;;</span><br><span class="line">        *)</span><br><span class="line">            brew switch go 1.12.7</span><br><span class="line">            <span class="built_in">export</span> GOROOT=/usr/<span class="built_in">local</span>/Cellar/go/1.12.7/libexec</span><br><span class="line">            ;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">esac</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Installed Go path</span></span><br><span class="line">    <span class="built_in">export</span> GOPATH=<span class="variable">$HOME</span>/go</span><br><span class="line">    <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:GOROOT/bing</span><br><span class="line">    <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:$(go env GOPATH)/bin</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># homebrew go version config </span></span><br><span class="line"><span class="function"><span class="title">goconfig</span></span>() &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="keyword">in</span></span><br><span class="line">        <span class="string">"1.12"</span>)</span><br><span class="line">            brew switch go 1.12.7</span><br><span class="line">            <span class="built_in">export</span> GOROOT=/usr/<span class="built_in">local</span>/Cellar/go/1.12.7/libexec</span><br><span class="line">            ;;</span><br><span class="line">        <span class="string">"1.13"</span>)</span><br><span class="line">            brew switch go 1.13</span><br><span class="line">            <span class="built_in">export</span> GOROOT=/usr/<span class="built_in">local</span>/Cellar/go/1.13/libexec</span><br><span class="line">            ;;</span><br><span class="line">        *)</span><br><span class="line">            brew switch go 1.12.7</span><br><span class="line">            <span class="built_in">export</span> GOROOT=/usr/<span class="built_in">local</span>/Cellar/go/1.12.7/libexec</span><br><span class="line">            ;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">esac</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Installed Go path</span></span><br><span class="line">    <span class="built_in">export</span> GOPATH=<span class="variable">$HOME</span>/go</span><br><span class="line">    <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:GOROOT/bin</span><br><span class="line">    <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:$(go env GOPATH)/bin</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>To use simply pass the version selected. For example, to change to go version 12:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Switch to go version 12</span></span><br><span class="line">goconfig 1.12</span><br></pre></td></tr></table></figure>
@@ -528,9 +528,11 @@
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <!-- customize link to "about me" -->
+    <a href="/about/" rel="section">
     <img class="site-author-image" itemprop="image"
       src="/images/avatar.png"
-      alt="R5by">
+      alt="R5by"></a>
   <p class="site-author-name" itemprop="name">R5by</p>
   <div class="site-description motion-element" itemprop="description"></div>
 </div>
@@ -798,6 +800,7 @@
   <script type="text/javascript" src="/js/mtxdigitalrain.js"></script>
 
 
+<!-- subtitle text changing -->
 <script type="text/javascript" src="/js/decryption.js"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </body>
