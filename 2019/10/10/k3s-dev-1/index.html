@@ -61,19 +61,19 @@
 <meta name="keywords" content="k3s, k8s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="k3s Dev (1) Environment Setup">
-<meta property="og:url" content="https://ruby-.github.io/2019/10/10/k3s-dev-1-env-setup/index.html">
+<meta property="og:url" content="https://ruby-.github.io/2019/10/10/k3s-dev-1/index.html">
 <meta property="og:site_name" content="Ruby-&#39;s Blog">
 <meta property="og:description" content="This post shows in steps how to set up a dev environment for k3s project. Step 1. PreparationThe following list shows my local development environment setup: For code review &amp;amp; build purpose:  OS:">
 <meta property="og:locale" content="zh-CN, en, default">
 <meta property="og:image" content="https://drive.google.com/uc?export=view&id=1VTjvnD_Fi3o1kGt3hc_o-IyeubWb5bTX">
 <meta property="og:image" content="https://drive.google.com/uc?export=view&id=1Yf24i0WFEMJR-mnvyOg79X_xcnqx_06t">
-<meta property="og:updated_time" content="2019-10-16T20:27:40.000Z">
+<meta property="og:updated_time" content="2019-10-30T22:28:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="k3s Dev (1) Environment Setup">
 <meta name="twitter:description" content="This post shows in steps how to set up a dev environment for k3s project. Step 1. PreparationThe following list shows my local development environment setup: For code review &amp;amp; build purpose:  OS:">
 <meta name="twitter:image" content="https://drive.google.com/uc?export=view&id=1VTjvnD_Fi3o1kGt3hc_o-IyeubWb5bTX">
   <link rel="alternate" href="/atom.xml" title="Ruby-'s Blog" type="application/atom+xml">
-  <link rel="canonical" href="https://ruby-.github.io/2019/10/10/k3s-dev-1-env-setup/">
+  <link rel="canonical" href="https://ruby-.github.io/2019/10/10/k3s-dev-1/">
 
 
 <script id="page.configurations">
@@ -247,7 +247,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ruby-.github.io/2019/10/10/k3s-dev-1-env-setup/">
+    <link itemprop="mainEntityOfPage" href="https://ruby-.github.io/2019/10/10/k3s-dev-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="R5by">
@@ -294,7 +294,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-16 15:27:40" itemprop="dateModified" datetime="2019-10-16T15:27:40-05:00">2019-10-16</time>
+                <time title="Modified: 2019-10-30 17:28:01" itemprop="dateModified" datetime="2019-10-30T17:28:01-05:00">2019-10-30</time>
               </span>
             
           
@@ -322,7 +322,7 @@
               
                 <span class="post-meta-item-text">Symbols count in article: </span>
               
-              <span title="Symbols count in article">7.5k</span>
+              <span title="Symbols count in article">7.6k</span>
             </span>
           
             <span class="post-meta-item">
@@ -420,7 +420,7 @@
 <blockquote>
 <p>Some of my questions:</p>
 <ul>
-<li>(1) Use the <code>make</code> method to build the whole project takes long time (3~5 min for me). I wonder if there’s some “quick” and “convenient” way to speedup this procedure, e.g. build only parts that have been changed? Please leave comments below if you know the answer to this.</li>
+<li>(1) <del>Use the <code>make</code> method to build the whole project takes long time (3-5 min for me). I wonder if there’s some “quick” and “convenient” way to speedup this procedure, e.g. build only parts that have been changed? Please leave comments below if you know the answer to this.</del><br>(Updated) Please refer my following post for a better way to separate source code edit &amp; build/test environment here at <a href="/2019/10/30/k3s-dev-2/" title="k3s Dev (2) Vagrant + VirtualBox Dev.">k3s Dev (2) Vagrant + VirtualBox Dev.</a></li>
 <li>(2) The latest stable version of GoLand(2019.2) leave the channel open after the debugging procedure has been stopped within IDE. Simple kill the dlv by PID to get around this issue.</li>
 <li>(3) Run <code>k3s</code> command with generate a bunch of code in <code>/var/lib/rancher/k3s/</code>, these run time generated binaries and configurations contain most important components including <code>k3s-server</code> and <code>k3s-agent</code>. Details about these we’ll explore also in next my post.</li>
 </ul>
@@ -482,6 +482,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+              <a href="/2019/10/30/k3s-dev-2/" rel="prev" title="k3s Dev (2) Vagrant + VirtualBox Dev.">
+                k3s Dev (2) Vagrant + VirtualBox Dev. <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
     </footer>
@@ -541,7 +545,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -647,14 +651,14 @@
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">16k</span>
+    <span title="Symbols count total">24k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">15 mins.</span>
+    <span title="Reading time total">21 mins.</span>
 </div>
 
         
