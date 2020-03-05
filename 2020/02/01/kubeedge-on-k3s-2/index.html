@@ -139,8 +139,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <!-- subtitle text changing effect: add id="glitch_this" -->
-        <p class="site-subtitle" id="glitch_this">Welcome</p> 
+        <h1 class="site-subtitle" itemprop="description">Welcome</h1>
       
   </div>
 
@@ -258,11 +257,11 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">k3s+kubeedge (2) Deploy the Cloud Core (edgecontroller)
+          <h2 class="post-title" itemprop="name headline">k3s+kubeedge (2) Deploy the Cloud Core (edgecontroller)
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -340,7 +339,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart k3s</span><br><span class="line"></span><br><span class="line"><span class="comment">#Check the k3s is successfully restarted with the modified configurations</span></span><br><span class="line">systemctl status k3s</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p> Traefik is always restarting automatically with k3s. Thus to truly disable it, one should follow the commands mentioned in <a href="https://github.com/rancher/k3s/issues/717#issuecomment-541876588" target="_blank" rel="noopener">here</a>.</p>
+<p> Traefik is always restarting automatically with k3s. Thus to truly disable it, one should follow the commands mentioned in <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JhbmNoZXIvazNzL2lzc3Vlcy83MTcjaXNzdWVjb21tZW50LTU0MTg3NjU4OA==" title="https://github.com/rancher/k3s/issues/717#issuecomment-541876588">here<i class="fa fa-external-link"></i></span>.</p>
 </blockquote>
 <h2 id="Step-2-Build-amp-Deploy-cloudimage"><a href="#Step-2-Build-amp-Deploy-cloudimage" class="headerlink" title="Step 2. Build &amp; Deploy cloudimage"></a>Step 2. Build &amp; Deploy cloudimage</h2><p>Feel free to refresh your memory on how to build the Kubeedge cloudimage in my previous post. However if you only wish to test deploy, you may use mine here <code>r5by/kubeedge_edgecontroller:v1.0.0</code>. After the cloudimage is prepared, the next step is to generate certification files:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> build/cloud</span><br><span class="line">../tools/certgen.sh buildSecret | tee ./06-secret.yaml</span><br></pre></td></tr></table></figure>
@@ -364,12 +363,12 @@
 
 <h2 id="Step-4-Trouble-Shooting"><a href="#Step-4-Trouble-Shooting" class="headerlink" title="Step 4. Trouble Shooting"></a>Step 4. Trouble Shooting</h2><p>Okay, I understand life is complicated. Unfortunately if you were caught by some weird error messages, don’t panic (even though the compiler does). Check the issues I mentioned in the previous post, and verify carefully each of these yaml files to make sure you understand what should be there. I also listed here several forum posts that may help with your issues:</p>
 <ul>
-<li>1) <a href="https://github.com/kubernetes/dns/issues/110" target="_blank" rel="noopener">DNS issue, not the fix for mine</a></li>
-<li>2) <a href="https://github.com/kubernetes/kubernetes/issues/66432" target="_blank" rel="noopener">DNS issue, again not the fix for mine</a></li>
-<li>3) <a href="https://github.com/kubernetes/minikube/issues/4350" target="_blank" rel="noopener">DNS issue, no luck either</a></li>
-<li>4) <a href="https://github.com/kubernetes/kubeadm/issues/193#issuecomment-330060848" target="_blank" rel="noopener">DNS issue, finally works, fix mentioned in here</a></li>
-<li>5) <a href="https://github.com/rancher/rancher/issues/6139" target="_blank" rel="noopener">DNS issue, not works for mine</a></li>
-<li>6) <a href="https://github.com/rancher/k3s/issues/24" target="_blank" rel="noopener">DNS issue, from k3s forum, not a solution for my case</a></li>
+<li>1) <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVybmV0ZXMvZG5zL2lzc3Vlcy8xMTA=" title="https://github.com/kubernetes/dns/issues/110">DNS issue, not the fix for mine<i class="fa fa-external-link"></i></span></li>
+<li>2) <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVybmV0ZXMva3ViZXJuZXRlcy9pc3N1ZXMvNjY0MzI=" title="https://github.com/kubernetes/kubernetes/issues/66432">DNS issue, again not the fix for mine<i class="fa fa-external-link"></i></span></li>
+<li>3) <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVybmV0ZXMvbWluaWt1YmUvaXNzdWVzLzQzNTA=" title="https://github.com/kubernetes/minikube/issues/4350">DNS issue, no luck either<i class="fa fa-external-link"></i></span></li>
+<li>4) <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVybmV0ZXMva3ViZWFkbS9pc3N1ZXMvMTkzI2lzc3VlY29tbWVudC0zMzAwNjA4NDg=" title="https://github.com/kubernetes/kubeadm/issues/193#issuecomment-330060848">DNS issue, finally works, fix mentioned in here<i class="fa fa-external-link"></i></span></li>
+<li>5) <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JhbmNoZXIvcmFuY2hlci9pc3N1ZXMvNjEzOQ==" title="https://github.com/rancher/rancher/issues/6139">DNS issue, not works for mine<i class="fa fa-external-link"></i></span></li>
+<li>6) <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JhbmNoZXIvazNzL2lzc3Vlcy8yNA==" title="https://github.com/rancher/k3s/issues/24">DNS issue, from k3s forum, not a solution for my case<i class="fa fa-external-link"></i></span></li>
 </ul>
 <p>Finally, if you have other questions/problems and solutions, please leave your comments below to share with others. In the next post, I’ll complete the Kubeedge cluster setup with the edgecore setup on both lovely Raspberry Pi’s.</p>
 
@@ -491,7 +490,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -553,7 +552,7 @@
       
         
       
-        <a href="https://github.com/ruby-" title="GitHub &rarr; https://github.com/ruby-" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3J1Ynkt" title="GitHub &rarr; https://github.com/ruby-"><i class="fa fa-fw fa-github"></i>GitHub</span>
       </span>
     
   </div>
@@ -601,14 +600,14 @@
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">43k</span>
+    <span title="Symbols count total">52k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">39 mins.</span>
+    <span title="Reading time total">48 mins.</span>
 </div>
 
         
@@ -657,6 +656,7 @@
   
 
   
+  <script src="/js/exturl.js?v=7.3.0"></script>
 
   
 

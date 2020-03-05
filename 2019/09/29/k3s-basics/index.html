@@ -139,8 +139,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <!-- subtitle text changing effect: add id="glitch_this" -->
-        <p class="site-subtitle" id="glitch_this">Welcome</p> 
+        <h1 class="site-subtitle" itemprop="description">Welcome</h1>
       
   </div>
 
@@ -258,11 +257,11 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">k3s Basics
+          <h2 class="post-title" itemprop="name headline">k3s Basics
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -343,7 +342,7 @@
 
       
         <p>This post explains my first impression with <strong>k3s</strong>.</p>
-<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>In order to work on k3s project, one needs to learn to use it at first. This post summarize the main steps of deploying <a href="https://github.com/rancher/k3s" target="_blank" rel="noopener">k3s</a> in our local lab environment and also on AWS EC2.</p>
+<h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>In order to work on k3s project, one needs to learn to use it at first. This post summarize the main steps of deploying <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JhbmNoZXIvazNz" title="https://github.com/rancher/k3s">k3s<i class="fa fa-external-link"></i></span> in our local lab environment and also on AWS EC2.</p>
 <h2 id="Local-k3s-cluster-Setup"><a href="#Local-k3s-cluster-Setup" class="headerlink" title="Local k3s cluster Setup"></a>Local k3s cluster Setup</h2><p>The basic hardware setup for this demo is as the same as the last post on k8s demo (3 VMs), feel free to apply the following methods with the latest released k3s on your own Raspbian nodes, it should work as we also tested it. However, the latest released version (0.9.1 at the time of this post) of k3s has some ca-related issues for an agent to join the master node (if a full ca-enabled Kubernetes cluster has been configured on these nodes), thus an earlier release version (0.2.0) was used for this section.</p>
 <h3 id="Step-1-Stop-the-previously-installed-k8s-related-services-optional"><a href="#Step-1-Stop-the-previously-installed-k8s-related-services-optional" class="headerlink" title="Step 1: Stop the previously installed k8s related services (optional)"></a>Step 1: Stop the previously installed k8s related services (optional)</h3><p>On master node:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">service kube-calico stop</span><br><span class="line">service kube-scheduler stop</span><br><span class="line">service kube-controller-manager stop</span><br><span class="line">service kube-apiserver stop</span><br><span class="line">service etcd stop &amp;&amp; rm -fr /var/lib/etcd/*</span><br></pre></td></tr></table></figure>
@@ -550,7 +549,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -612,7 +611,7 @@
       
         
       
-        <a href="https://github.com/ruby-" title="GitHub &rarr; https://github.com/ruby-" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3J1Ynkt" title="GitHub &rarr; https://github.com/ruby-"><i class="fa fa-fw fa-github"></i>GitHub</span>
       </span>
     
   </div>
@@ -660,14 +659,14 @@
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">43k</span>
+    <span title="Symbols count total">52k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">39 mins.</span>
+    <span title="Reading time total">48 mins.</span>
 </div>
 
         
@@ -716,6 +715,7 @@
   
 
   
+  <script src="/js/exturl.js?v=7.3.0"></script>
 
   
 

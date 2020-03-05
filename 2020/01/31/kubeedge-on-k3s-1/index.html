@@ -143,8 +143,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <!-- subtitle text changing effect: add id="glitch_this" -->
-        <p class="site-subtitle" id="glitch_this">Welcome</p> 
+        <h1 class="site-subtitle" itemprop="description">Welcome</h1>
       
   </div>
 
@@ -262,11 +261,11 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">k3s+kubeedge (1) Code Review/Debugging Environment Setup
+          <h2 class="post-title" itemprop="name headline">k3s+kubeedge (1) Code Review/Debugging Environment Setup
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -346,7 +345,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><a href="https://github.com/kubeedge/kubeedge" target="_blank" rel="noopener">Kubeedge</a> is a CNCF open source project that aims at extending the existing orchestration system (Kubernetes)’s container management capability to the edge. It provides core infrastructure support for networking, application deployment and metadata synchronization between cloud and edge along with the Kubernetes project. In this series of posts, we’ll see how to deploy Kubeedge on our existing k3s cluster and set up a code review environment where we may set up breakpoint and step-by-step inspect its functionality. This post focuses on the latter part.</p>
+        <p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVlZGdlL2t1YmVlZGdl" title="https://github.com/kubeedge/kubeedge">Kubeedge<i class="fa fa-external-link"></i></span> is a CNCF open source project that aims at extending the existing orchestration system (Kubernetes)’s container management capability to the edge. It provides core infrastructure support for networking, application deployment and metadata synchronization between cloud and edge along with the Kubernetes project. In this series of posts, we’ll see how to deploy Kubeedge on our existing k3s cluster and set up a code review environment where we may set up breakpoint and step-by-step inspect its functionality. This post focuses on the latter part.</p>
 <p>For the purpose of reading code and more importantly, understanding and fixing the errors, it’s better to have a debugging environment set up first. As for our deployment, we currently have one PC server as the master host to deploy the cloud part, and two Raspberry Pi 3 as the worker nodes to deploy the edge part. The main components of Kubeedge’s cloud/edge parts can be viewed from the structure pictured in below:</p>
 <p><img src="https://github.com/kubeedge/kubeedge/raw/master/docs/images/kubeedge_arch.png" alt="image"></p>
 <p>This post is going to demonstrate how to debug the “cloud core” from within the container at deployment. For the edge core, the procedures are similar. You may also build &amp; debug the code from the code directly, but in my case I personally like to have development environment to be close to my deployment (a.k.a in a docker/container execution environment).</p>
@@ -369,7 +368,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">Successfully built 5f31402ab1ee</span><br><span class="line">Successfully tagged kubeedge/edgecontroller:v1.0.0</span><br></pre></td></tr></table></figure>
 
 <p>However, if you take that image to deploy on the cloud server, you may get lots of trouble. In my next post, I’ll lead you through several pitfalls I encountered when I was trying to deploy it, but for now, let’s continue on our investigation on how to connect the running container to our IDE for debugging/code review.</p>
-<h2 id="Step-3-Rebuild-the-cloudimage"><a href="#Step-3-Rebuild-the-cloudimage" class="headerlink" title="Step 3. Rebuild the cloudimage"></a>Step 3. Rebuild the cloudimage</h2><p>For the development and code review, I continue to use GoLand IDE (2019.3). The following debugging strategy is mainly inspired by this <a href="https://blog.jetbrains.com/go/2018/04/30/debugging-containerized-go-applications/" target="_blank" rel="noopener">post</a>.</p>
+<h2 id="Step-3-Rebuild-the-cloudimage"><a href="#Step-3-Rebuild-the-cloudimage" class="headerlink" title="Step 3. Rebuild the cloudimage"></a>Step 3. Rebuild the cloudimage</h2><p>For the development and code review, I continue to use GoLand IDE (2019.3). The following debugging strategy is mainly inspired by this <span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmpldGJyYWlucy5jb20vZ28vMjAxOC8wNC8zMC9kZWJ1Z2dpbmctY29udGFpbmVyaXplZC1nby1hcHBsaWNhdGlvbnMv" title="https://blog.jetbrains.com/go/2018/04/30/debugging-containerized-go-applications/">post<i class="fa fa-external-link"></i></span>.</p>
 <p>First, locate the Dockerfile in the <code>build/cloud</code> path, and replace its content with following:</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> golang:<span class="number">1.12</span>.<span class="number">1</span>-alpine3.<span class="number">9</span> AS builder</span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> . /go/src/github.com/kubeedge/kubeedge</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># RUN CGO_ENABLED=0 go build -v -o /usr/local/bin/edgecontroller -ldflags="-w -s" \</span></span><br><span class="line"><span class="comment"># github.com/kubeedge/kubeedge/cloud/cmd</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> CGO_ENABLED=0 go build -gcflags <span class="string">"all=-N -l"</span> -v -o /usr/<span class="built_in">local</span>/bin/edgecontroller  \</span></span><br><span class="line"><span class="bash">github.com/kubeedge/kubeedge/cloud/cmd</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Compile Delve</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apk add --no-cache git</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> go get github.com/derekparker/delve/cmd/dlv</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> alpine:<span class="number">3.9</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># For debug</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">2345</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span> GOARCHAIUS_CONFIG_PATH /etc/kubeedge/cloud</span><br><span class="line"></span><br><span class="line"><span class="comment"># Allow delve to run on Alpine based containers.</span></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apk add --no-cache libc6-compat</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">VOLUME</span><span class="bash"> [<span class="string">"/etc/kubeedge/certs"</span>, <span class="string">"/etc/kubeedge/cloud/conf"</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=builder /usr/<span class="built_in">local</span>/bin/edgecontroller /usr/<span class="built_in">local</span>/bin/edgecontroller</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=builder /go/bin/dlv /</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"/dlv"</span>, <span class="string">"--listen=:2345"</span>, <span class="string">"--headless=true"</span>, <span class="string">"--api-version=2"</span>, <span class="string">"exec"</span>, <span class="string">"/usr/local/bin/edgecontroller"</span>]</span></span><br></pre></td></tr></table></figure>
 
@@ -524,7 +523,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -586,7 +585,7 @@
       
         
       
-        <a href="https://github.com/ruby-" title="GitHub &rarr; https://github.com/ruby-" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3J1Ynkt" title="GitHub &rarr; https://github.com/ruby-"><i class="fa fa-fw fa-github"></i>GitHub</span>
       </span>
     
   </div>
@@ -634,14 +633,14 @@
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">43k</span>
+    <span title="Symbols count total">52k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">39 mins.</span>
+    <span title="Reading time total">48 mins.</span>
 </div>
 
         
@@ -690,6 +689,7 @@
   
 
   
+  <script src="/js/exturl.js?v=7.3.0"></script>
 
   
 

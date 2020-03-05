@@ -142,8 +142,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <!-- subtitle text changing effect: add id="glitch_this" -->
-        <p class="site-subtitle" id="glitch_this">Welcome</p> 
+        <h1 class="site-subtitle" itemprop="description">Welcome</h1>
       
   </div>
 
@@ -261,11 +260,11 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">k3s Dev (1) Environment Setup
+          <h2 class="post-title" itemprop="name headline">k3s Dev (1) Environment Setup
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -362,7 +361,7 @@
 <blockquote>
 <p>Alternatively, one could use EC2 instances as testing deploy environment, in which case may directly to go step 2.</p>
 </blockquote>
-<h3 id="1-1-VirtualBox-Setup"><a href="#1-1-VirtualBox-Setup" class="headerlink" title="1.1 VirtualBox Setup"></a>1.1 VirtualBox Setup</h3><p>Download Ubuntu 18.04 iso from <a href="http://releases.ubuntu.com/18.04/" target="_blank" rel="noopener">official source</a> and install it on VirtualBox. Configure the network interface as following:</p>
+<h3 id="1-1-VirtualBox-Setup"><a href="#1-1-VirtualBox-Setup" class="headerlink" title="1.1 VirtualBox Setup"></a>1.1 VirtualBox Setup</h3><p>Download Ubuntu 18.04 iso from <span class="exturl" data-url="aHR0cDovL3JlbGVhc2VzLnVidW50dS5jb20vMTguMDQv" title="http://releases.ubuntu.com/18.04/">official source<i class="fa fa-external-link"></i></span> and install it on VirtualBox. Configure the network interface as following:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Check all available network adapters</span></span><br><span class="line">ifconfig -a</span><br><span class="line"></span><br><span class="line"><span class="comment"># Then Use netplan to config all interfaces</span></span><br><span class="line">sudo vi /etc/netplan/50-cloud-init.yaml</span><br></pre></td></tr></table></figure>
 
 <p>Change the content accordingly (192.168.56.1 is my gateway setting, change it according to your own VirtualBox network setting):</p>
@@ -371,13 +370,13 @@
 <p>Save and apply the changes:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sudo netplan apply</span><br><span class="line"></span><br><span class="line"><span class="comment"># Test connectivity</span></span><br><span class="line">ping 192.168.56.101 <span class="comment"># another virtual machine</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Test installing k3s</span></span><br><span class="line">curl -sfL https://get.k3s.io | INSTALL_K3S_BIN_DIR=<span class="string">"/home/main/k3s"</span> sh -</span><br></pre></td></tr></table></figure>
 
-<h3 id="1-2-Golang-Environment"><a href="#1-2-Golang-Environment" class="headerlink" title="1.2 Golang Environment"></a>1.2 Golang Environment</h3><p>For Mac OS users, I recommend use <code>homebrew</code> to manage go environment. However, go has its own version manager called GVM, refer <a href="https://github.com/moovweb/gvm" target="_blank" rel="noopener">here</a> for detailed information. To use earlier version of go, add following to your <code>.bashrc</code> file:</p>
+<h3 id="1-2-Golang-Environment"><a href="#1-2-Golang-Environment" class="headerlink" title="1.2 Golang Environment"></a>1.2 Golang Environment</h3><p>For Mac OS users, I recommend use <code>homebrew</code> to manage go environment. However, go has its own version manager called GVM, refer <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL21vb3Z3ZWIvZ3Zt" title="https://github.com/moovweb/gvm">here<i class="fa fa-external-link"></i></span> for detailed information. To use earlier version of go, add following to your <code>.bashrc</code> file:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># homebrew go version config </span></span><br><span class="line"><span class="function"><span class="title">goconfig</span></span>() &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">"<span class="variable">$1</span>"</span> <span class="keyword">in</span></span><br><span class="line">        <span class="string">"1.12"</span>)</span><br><span class="line">            brew switch go 1.12.7</span><br><span class="line">            <span class="built_in">export</span> GOROOT=/usr/<span class="built_in">local</span>/Cellar/go/1.12.7/libexec</span><br><span class="line">            ;;</span><br><span class="line">        <span class="string">"1.13"</span>)</span><br><span class="line">            brew switch go 1.13</span><br><span class="line">            <span class="built_in">export</span> GOROOT=/usr/<span class="built_in">local</span>/Cellar/go/1.13/libexec</span><br><span class="line">            ;;</span><br><span class="line">        *)</span><br><span class="line">            brew switch go 1.12.7</span><br><span class="line">            <span class="built_in">export</span> GOROOT=/usr/<span class="built_in">local</span>/Cellar/go/1.12.7/libexec</span><br><span class="line">            ;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">esac</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Installed Go path</span></span><br><span class="line">    <span class="built_in">export</span> GOPATH=<span class="variable">$HOME</span>/go</span><br><span class="line">    <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:GOROOT/bin</span><br><span class="line">    <span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:$(go env GOPATH)/bin</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>To use simply pass the version selected. For example, to change to go version 12:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Switch to go version 12</span></span><br><span class="line">goconfig 1.12</span><br></pre></td></tr></table></figure>
 
-<h3 id="1-3-Source-Code-Download"><a href="#1-3-Source-Code-Download" class="headerlink" title="1.3 Source Code Download"></a>1.3 Source Code Download</h3><p>With go environment set up, now we go to its workspace to pull the source from github (I have already forked k3s project to my own github account, if that’s not the case for you, simply pull the source from <a href="https://github.com/rancher/k3s" target="_blank" rel="noopener">rancher</a>)</p>
+<h3 id="1-3-Source-Code-Download"><a href="#1-3-Source-Code-Download" class="headerlink" title="1.3 Source Code Download"></a>1.3 Source Code Download</h3><p>With go environment set up, now we go to its workspace to pull the source from github (I have already forked k3s project to my own github account, if that’s not the case for you, simply pull the source from <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JhbmNoZXIvazNz" title="https://github.com/rancher/k3s">rancher<i class="fa fa-external-link"></i></span>)</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /Users/yourname/go/src/github.com/yourgithubacct</span><br><span class="line"></span><br><span class="line"><span class="comment"># Download my forked project to local</span></span><br><span class="line">git <span class="built_in">clone</span> --depth 1 https://github.com/ruby-/k3s.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add rancher remote source</span></span><br><span class="line">git remote add rancher https://github.com/rancher/k3s.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># now there should be two remote sources: origin (my own) and rancher's</span></span><br><span class="line">git remote</span><br><span class="line"></span><br><span class="line"><span class="comment"># fetch from rancher's master branch and merge to local (shouldn't be any change yet)</span></span><br><span class="line">git fetch rancher</span><br><span class="line">git merge rancher/master</span><br></pre></td></tr></table></figure>
 
 <h2 id="Step-2-Build-amp-Test-Launch"><a href="#Step-2-Build-amp-Test-Launch" class="headerlink" title="Step 2. Build &amp; Test Launch"></a>Step 2. Build &amp; Test Launch</h2><p>Open the k3s folder in GoLand IDE, on Mac OS, press <code>⌘ + ⇧ + f</code> to search in path for <em>“k3s is up and running”</em>, open the <em>pkg/cli/server/server.go</em> file and add following statement:</p>
@@ -390,21 +389,21 @@
 <p>Note that:</p>
 <ul>
 <li>(1) Remember to <code>chmod 777 k3s_install_path</code> the install path for <code>scp</code> to be able to upload k3s executable; </li>
-<li>(2) k3s doesn’t support cross compile at current release, refer to <a href="https://github.com/rancher/k3s/issues/530" target="_blank" rel="noopener">issue#530</a> for detailed discussion regarding this;</li>
-<li>(3) There are two options for developers to build k3s from source. We are adapting docker method with <a href="https://github.com/rancher/dapper" target="_blank" rel="noopener">rancher/dapper</a> wrapper in this post. However for those who are working on Linux, may alternatively download the dependencies and directly build the source with <code>go build</code> commend described <a href="https://rancher.com/docs/k3s/latest/en/building/" target="_blank" rel="noopener">here</a>; unfortunately this compile option is not available for Mac OS users at current release, refer to <a href="https://github.com/rancher/k3s/issues/273" target="_blank" rel="noopener">issue#273</a> for detailed discussion regarding this.</li>
+<li>(2) k3s doesn’t support cross compile at current release, refer to <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JhbmNoZXIvazNzL2lzc3Vlcy81MzA=" title="https://github.com/rancher/k3s/issues/530">issue#530<i class="fa fa-external-link"></i></span> for detailed discussion regarding this;</li>
+<li>(3) There are two options for developers to build k3s from source. We are adapting docker method with <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JhbmNoZXIvZGFwcGVy" title="https://github.com/rancher/dapper">rancher/dapper<i class="fa fa-external-link"></i></span> wrapper in this post. However for those who are working on Linux, may alternatively download the dependencies and directly build the source with <code>go build</code> commend described <span class="exturl" data-url="aHR0cHM6Ly9yYW5jaGVyLmNvbS9kb2NzL2szcy9sYXRlc3QvZW4vYnVpbGRpbmcv" title="https://rancher.com/docs/k3s/latest/en/building/">here<i class="fa fa-external-link"></i></span>; unfortunately this compile option is not available for Mac OS users at current release, refer to <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JhbmNoZXIvazNzL2lzc3Vlcy8yNzM=" title="https://github.com/rancher/k3s/issues/273">issue#273<i class="fa fa-external-link"></i></span> for detailed discussion regarding this.</li>
 <li>(4) For Mac OS users, docker tends to accumulate its data file (store at <code>/Users/yourname/Library/Containers/com.docker.docker/Data/vms/0/Docker.qcow2</code>) which contains its self os image and downloaded containers. Build <strong>k3s</strong> project may consume ~10GB space on disk and it keeps growing. The way to get around this is to use docker built-in “reset” tab (Also note that <code>docker system prune</code> won’t save you from this pitfall).</li>
 </ul>
 </blockquote>
-<h2 id="Step-3-Breakpoint-amp-debugging"><a href="#Step-3-Breakpoint-amp-debugging" class="headerlink" title="Step 3. Breakpoint &amp; debugging"></a>Step 3. Breakpoint &amp; debugging</h2><p>It is essential for us engineers to be able to set up breakpoint and debug the code in software development. In this section we’ll try to connect to remotely deployed <strong>k3s</strong> executable and use <a href="https://github.com/go-delve/delve" target="_blank" rel="noopener">delve</a> tool to navigate through the debugging process. </p>
+<h2 id="Step-3-Breakpoint-amp-debugging"><a href="#Step-3-Breakpoint-amp-debugging" class="headerlink" title="Step 3. Breakpoint &amp; debugging"></a>Step 3. Breakpoint &amp; debugging</h2><p>It is essential for us engineers to be able to set up breakpoint and debug the code in software development. In this section we’ll try to connect to remotely deployed <strong>k3s</strong> executable and use <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvLWRlbHZlL2RlbHZl" title="https://github.com/go-delve/delve">delve<i class="fa fa-external-link"></i></span> tool to navigate through the debugging process. </p>
 <h3 id="3-1-Install-go-and-dlv-in-deploy-env"><a href="#3-1-Install-go-and-dlv-in-deploy-env" class="headerlink" title="3.1 Install go and dlv in deploy env"></a>3.1 Install go and dlv in deploy env</h3><p>To install and set up go environment and dlv debugger on Ubuntu 18.04 server VM we created earlier, simply follow these two guides:</p>
 <ul>
-<li><a href="https://www.digitalocean.com/community/tutorials/how-to-install-go-on-ubuntu-18-04" target="_blank" rel="noopener">How To Install Go on Ubuntu 18.04</a></li>
-<li><a href="https://github.com/go-delve/delve/blob/master/Documentation/installation/linux/install.md" target="_blank" rel="noopener">dlv - Installation on Linux</a></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuZGlnaXRhbG9jZWFuLmNvbS9jb21tdW5pdHkvdHV0b3JpYWxzL2hvdy10by1pbnN0YWxsLWdvLW9uLXVidW50dS0xOC0wNA==" title="https://www.digitalocean.com/community/tutorials/how-to-install-go-on-ubuntu-18-04">How To Install Go on Ubuntu 18.04<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvLWRlbHZlL2RlbHZlL2Jsb2IvbWFzdGVyL0RvY3VtZW50YXRpb24vaW5zdGFsbGF0aW9uL2xpbnV4L2luc3RhbGwubWQ=" title="https://github.com/go-delve/delve/blob/master/Documentation/installation/linux/install.md">dlv - Installation on Linux<i class="fa fa-external-link"></i></span></li>
 </ul>
 <p>To get familiar with <code>dlv</code> basic workflows and combine it with JetBrain GoLand IDE, I recommend to follow these practices:</p>
 <ul>
-<li><a href="https://www.jamessturtevant.com/posts/Using-the-Go-Delve-Debugger-from-the-command-line/" target="_blank" rel="noopener">Using the Go Delve Debugger from the command line</a></li>
-<li><a href="https://blog.jetbrains.com/go/2019/02/06/debugging-with-goland-getting-started/" target="_blank" rel="noopener">Debugging with GoLand – Getting Started</a></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cuamFtZXNzdHVydGV2YW50LmNvbS9wb3N0cy9Vc2luZy10aGUtR28tRGVsdmUtRGVidWdnZXItZnJvbS10aGUtY29tbWFuZC1saW5lLw==" title="https://www.jamessturtevant.com/posts/Using-the-Go-Delve-Debugger-from-the-command-line/">Using the Go Delve Debugger from the command line<i class="fa fa-external-link"></i></span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly9ibG9nLmpldGJyYWlucy5jb20vZ28vMjAxOS8wMi8wNi9kZWJ1Z2dpbmctd2l0aC1nb2xhbmQtZ2V0dGluZy1zdGFydGVkLw==" title="https://blog.jetbrains.com/go/2019/02/06/debugging-with-goland-getting-started/">Debugging with GoLand – Getting Started<i class="fa fa-external-link"></i></span></li>
 </ul>
 <p>Now let us go back to our <strong>k3s</strong> project, find and modify the following lines in <code>scripts/build.sh</code>:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"></span><br><span class="line">VERSIONFLAGS=<span class="string">"</span></span><br><span class="line"><span class="string">    -X <span class="variable">$PKG</span>/pkg/version.Version=<span class="variable">$VERSION</span></span></span><br><span class="line"><span class="string">    -X <span class="variable">$PKG</span>/pkg/version.GitCommit=<span class="variable">$&#123;COMMIT:0:8&#125;</span></span></span><br><span class="line"><span class="string">    -X <span class="variable">$PKG</span>/vendor/<span class="variable">$PKG_CONTAINERD</span>/version.Version=<span class="variable">$VERSION_CONTAINERD</span></span></span><br><span class="line"><span class="string">    -X <span class="variable">$PKG</span>/vendor/<span class="variable">$PKG_CONTAINERD</span>/version.Package=<span class="variable">$PKG_RANCHER_CONTAINERD</span></span></span><br><span class="line"><span class="string">    -X <span class="variable">$PKG</span>/vendor/<span class="variable">$PKG_CRICTL</span>/pkg/version.Version=<span class="variable">$VERSION_CRICTL</span>"</span></span><br><span class="line"><span class="comment"># Comment out LDFLAGS (link) for debug: "-w"= wipe out debug info ;; "-s"= remove symbol table</span></span><br><span class="line"><span class="comment"># LDFLAGS="</span></span><br><span class="line"><span class="comment">#    -w -s"</span></span><br><span class="line">LDFLAGS=<span class="string">""</span></span><br><span class="line">STATIC=<span class="string">"</span></span><br><span class="line"><span class="string">    -extldflags '-static'</span></span><br><span class="line"><span class="string">"</span></span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
@@ -545,7 +544,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -607,7 +606,7 @@
       
         
       
-        <a href="https://github.com/ruby-" title="GitHub &rarr; https://github.com/ruby-" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3J1Ynkt" title="GitHub &rarr; https://github.com/ruby-"><i class="fa fa-fw fa-github"></i>GitHub</span>
       </span>
     
   </div>
@@ -655,14 +654,14 @@
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">43k</span>
+    <span title="Symbols count total">52k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">39 mins.</span>
+    <span title="Reading time total">48 mins.</span>
 </div>
 
         
@@ -711,6 +710,7 @@
   
 
   
+  <script src="/js/exturl.js?v=7.3.0"></script>
 
   
 

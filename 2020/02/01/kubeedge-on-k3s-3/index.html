@@ -139,8 +139,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <!-- subtitle text changing effect: add id="glitch_this" -->
-        <p class="site-subtitle" id="glitch_this">Welcome</p> 
+        <h1 class="site-subtitle" itemprop="description">Welcome</h1>
       
   </div>
 
@@ -258,11 +257,11 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">k3s+kubeedge (3) Deploy Edge Core on Raspberry Pi 3
+          <h2 class="post-title" itemprop="name headline">k3s+kubeedge (3) Deploy Edge Core on Raspberry Pi 3
 
               
             
-          </h1>
+          </h2>
         
 
         <div class="post-meta">
@@ -339,16 +338,16 @@
 <p>SSH to your Raspberry Pi and stop the k3s workers (if you have them running at those edge nodes):</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Input: On Rasp Pi</span></span><br><span class="line">./k3s-killall.sh</span><br></pre></td></tr></table></figure>
 
-<h2 id="Step-2-Cross-compile-evil-or-good"><a href="#Step-2-Cross-compile-evil-or-good" class="headerlink" title="Step 2. Cross-compile: evil or good"></a>Step 2. Cross-compile: evil or good</h2><p>The next step is to build and save edgecore image. This part is kinda messy for the Kubeedge project (吐了个槽). I’ve tried to follow the guide in their official documentation <a href="https://docs.kubeedge.io/en/latest/setup/setup.html#deploy-the-edge-node" target="_blank" rel="noopener">here</a> but failed. If you also confront so many problems like I do when following the official document, I suggest to try the solution as I suggest in below.</p>
+<h2 id="Step-2-Cross-compile-evil-or-good"><a href="#Step-2-Cross-compile-evil-or-good" class="headerlink" title="Step 2. Cross-compile: evil or good"></a>Step 2. Cross-compile: evil or good</h2><p>The next step is to build and save edgecore image. This part is kinda messy for the Kubeedge project (吐了个槽). I’ve tried to follow the guide in their official documentation <span class="exturl" data-url="aHR0cHM6Ly9kb2NzLmt1YmVlZGdlLmlvL2VuL2xhdGVzdC9zZXR1cC9zZXR1cC5odG1sI2RlcGxveS10aGUtZWRnZS1ub2Rl" title="https://docs.kubeedge.io/en/latest/setup/setup.html#deploy-the-edge-node">here<i class="fa fa-external-link"></i></span> but failed. If you also confront so many problems like I do when following the official document, I suggest to try the solution as I suggest in below.</p>
 <p>Cross-compile is a feature offered by Kubeedge project out-of-box. However, it doesn’t work as it’s supposed to, at least for my case. First, let’s take a quick look at its README file and I’ll explain what should happen:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> build/edge</span><br><span class="line">vi README.md</span><br></pre></td></tr></table></figure>
 
 <p>This README file is probably the second worst README instructions you can possibly find all over the github (the worst stays in my own repo). After reading it, little we know about its usefulness. In fact, the script makes use of the docker-compose on setting up both build and deployment environment in mixture, even though it still provides a <code>only_run_edge</code> option, the README instruction mentions nothing about it. After so many trouble shootings, I give up on using the original docker-compose method and adopt the following approach.</p>
-<p>First, since I don’t want to use Rasp Pi to build the project, I use the following commands to cross build the armv7 docker image within my x86_64 master node. The attached <code>run_daemon.sh</code> script provides a way of using <a href="https://github.com/multiarch/qemu-user-static#qemu-user-static" target="_blank" rel="noopener">qemu</a> to achieve such goal. Basically what it does is to simulate a arm-based Docker (but in fact running on a amd host) to build your Dockerfile into images for arm. You probably will confront problems mentioned in <a href="https://github.com/golang/go/issues/15038" target="_blank" rel="noopener">#15038</a>, <a href="https://github.com/kubeedge/kubeedge/issues/1068" target="_blank" rel="noopener">#1068</a> and <a href="https://github.com/docker/compose/issues/7160" target="_blank" rel="noopener">#7160</a> if you intend to build directly from Rasp Pi. But before you jump to those discussions, you can try to use my modified Dockerfile to replace the original one found under path <code>build/edge/</code> in order to save some time:</p>
+<p>First, since I don’t want to use Rasp Pi to build the project, I use the following commands to cross build the armv7 docker image within my x86_64 master node. The attached <code>run_daemon.sh</code> script provides a way of using <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL211bHRpYXJjaC9xZW11LXVzZXItc3RhdGljI3FlbXUtdXNlci1zdGF0aWM=" title="https://github.com/multiarch/qemu-user-static#qemu-user-static">qemu<i class="fa fa-external-link"></i></span> to achieve such goal. Basically what it does is to simulate a arm-based Docker (but in fact running on a amd host) to build your Dockerfile into images for arm. You probably will confront problems mentioned in <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvbGFuZy9nby9pc3N1ZXMvMTUwMzg=" title="https://github.com/golang/go/issues/15038">#15038<i class="fa fa-external-link"></i></span>, <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVlZGdlL2t1YmVlZGdlL2lzc3Vlcy8xMDY4" title="https://github.com/kubeedge/kubeedge/issues/1068">#1068<i class="fa fa-external-link"></i></span> and <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2RvY2tlci9jb21wb3NlL2lzc3Vlcy83MTYw" title="https://github.com/docker/compose/issues/7160">#7160<i class="fa fa-external-link"></i></span> if you intend to build directly from Rasp Pi. But before you jump to those discussions, you can try to use my modified Dockerfile to replace the original one found under path <code>build/edge/</code> in order to save some time:</p>
 <figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ARG</span> BUILD_FROM=golang:<span class="number">1.12</span>-alpine3.<span class="number">10</span></span><br><span class="line"><span class="keyword">ARG</span> RUN_FROM=docker:dind</span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> $&#123;BUILD_FROM&#125; AS builder</span><br><span class="line"></span><br><span class="line"><span class="keyword">ARG</span> QEMU_ARCH=x86_64</span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> ./build/edge/tmp/qemu-<span class="variable">$&#123;QEMU_ARCH&#125;</span>-static /usr/bin/</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> . /go/src/github.com/kubeedge/kubeedge</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">RUN</span><span class="bash"> apk --no-cache update &amp;&amp; \</span></span><br><span class="line"><span class="bash">apk --no-cache upgrade &amp;&amp; \</span></span><br><span class="line"><span class="bash">apk add libc-dev &amp;&amp; \</span></span><br><span class="line"><span class="bash">apk add binutils-gold &amp;&amp; \</span></span><br><span class="line"><span class="bash">apk --no-cache add build-base linux-headers sqlite-dev &amp;&amp; \</span></span><br><span class="line"><span class="bash">CGO_ENABLED=1 go build -v -o /usr/<span class="built_in">local</span>/bin/edge_core -ldflags=<span class="string">"-w -s -extldflags -static"</span> \</span></span><br><span class="line"><span class="bash">/go/src/github.com/kubeedge/kubeedge/edge/cmd</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">FROM</span> $&#123;RUN_FROM&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">LABEL</span><span class="bash"> maintainer=<span class="string">"zhanghongtong &lt;zhanghongtong@foxmail.com&gt;"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=builder /usr/bin/qemu* /usr/bin/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENV</span> GOARCHAIUS_CONFIG_PATH /etc/kubeedge/edge</span><br><span class="line"><span class="keyword">ENV</span> database.source /var/lib/kubeedge/edge.db</span><br><span class="line"></span><br><span class="line"><span class="keyword">VOLUME</span><span class="bash"> [<span class="string">"/etc/kubeedge/certs"</span>, <span class="string">"/var/lib/edged"</span>, <span class="string">"/var/lib/kubeedge"</span>, <span class="string">"/var/run/docker.sock"</span>]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=builder /usr/<span class="built_in">local</span>/bin/edge_core /usr/<span class="built_in">local</span>/bin/edge_core</span></span><br><span class="line"><span class="keyword">COPY</span><span class="bash"> --from=builder /go/src/github.com/kubeedge/kubeedge/edge/conf /etc/kubeedge/edge/conf</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"edge_core"</span>]</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>The magic button to notice is <code>apk add binutils-gold</code>, refer to the discussions <a href="https://github.com/google/gvisor/issues/26" target="_blank" rel="noopener">here</a> for more details.</p>
+<p>The magic button to notice is <code>apk add binutils-gold</code>, refer to the discussions <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dvb2dsZS9ndmlzb3IvaXNzdWVzLzI2" title="https://github.com/google/gvisor/issues/26">here<i class="fa fa-external-link"></i></span> for more details.</p>
 </blockquote>
 <p>With the Dockerfile modified, issue the following command to build edgecore for your own arm hosts. Or, if you are also using Raspberry Pi 3, feel free to grab my pre-built images from here <code>r5by/kubeedge_edgecore_armv7:v1.0.0</code>.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># build the edgecore for Rasp Pi 3 (arm v7)</span></span><br><span class="line"><span class="built_in">cd</span> build/edge</span><br><span class="line">./run_daemon.sh <span class="built_in">set</span> arch=arm32v7 qemu_arch=arm</span><br><span class="line">./run_daemon.sh build</span><br></pre></td></tr></table></figure>
@@ -431,6 +430,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+              <a href="/2020/03/04/kubeedge-temperature-demo/" rel="prev" title="Kubeedge Examples (Temperature Sensor Demo)">
+                Kubeedge Examples (Temperature Sensor Demo) <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
     </footer>
@@ -490,7 +493,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -552,7 +555,7 @@
       
         
       
-        <a href="https://github.com/ruby-" title="GitHub &rarr; https://github.com/ruby-" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3J1Ynkt" title="GitHub &rarr; https://github.com/ruby-"><i class="fa fa-fw fa-github"></i>GitHub</span>
       </span>
     
   </div>
@@ -600,14 +603,14 @@
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">43k</span>
+    <span title="Symbols count total">52k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">39 mins.</span>
+    <span title="Reading time total">48 mins.</span>
 </div>
 
         
@@ -656,6 +659,7 @@
   
 
   
+  <script src="/js/exturl.js?v=7.3.0"></script>
 
   
 
