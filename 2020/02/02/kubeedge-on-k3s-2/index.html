@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="zh-CN, en, default">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Play:300,300italic,400,400italic,700,700italic|Press Start 2P:300,300italic,400,400italic,700,700italic|Share Tech Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.3.0',
+    sidebar: {"position":"right","width":320,"display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: 'search.xml'
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="In the previous post, we know how to set up a code-review/debugging environment (some preparations are actually included in this post though). Now, let’s try to bring up the Kubeedge cloudcore (“edgec">
+<meta name="keywords" content="kubeedge, k3s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k3s+kubeedge (2) Deploy the Cloud Core (edgecontroller)">
+<meta property="og:url" content="https://ruby-.github.io/2020/02/02/kubeedge-on-k3s-2/index.html">
+<meta property="og:site_name" content="R5by&#39;s Blog">
+<meta property="og:description" content="In the previous post, we know how to set up a code-review/debugging environment (some preparations are actually included in this post though). Now, let’s try to bring up the Kubeedge cloudcore (“edgec">
+<meta property="og:locale" content="zh-CN, en, default">
+<meta property="og:updated_time" content="2020-02-01T23:13:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="k3s+kubeedge (2) Deploy the Cloud Core (edgecontroller)">
+<meta name="twitter:description" content="In the previous post, we know how to set up a code-review/debugging environment (some preparations are actually included in this post though). Now, let’s try to bring up the Kubeedge cloudcore (“edgec">
+  <link rel="alternate" href="/atom.xml" title="R5by's Blog" type="application/atom+xml">
+  <link rel="canonical" href="https://ruby-.github.io/2020/02/02/kubeedge-on-k3s-2/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- gitter chat room -->
+
+<!-- prevent google translate slow down rain effect-->
+
+  <meta name="google" content="notranslate">
+
+  <title>k3s+kubeedge (2) Deploy the Cloud Core (edgecontroller) | R5by's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN, en, default">
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">R5by's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 id="glitch_this" class="site-subtitle" itemprop="description">Welcome</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-search">
+          <a href="javascript:;" class="popup-trigger">
+          
+            <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+    
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+
+  
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    <div class="reading-progress-bar"></div>
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ruby-.github.io/2020/02/02/kubeedge-on-k3s-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="R5by">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="R5by's Blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h2 class="post-title" itemprop="name headline">k3s+kubeedge (2) Deploy the Cloud Core (edgecontroller)
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-02-02 04:03:15 / Modified: 07:13:03" itemprop="dateCreated datePublished" datetime="2020-02-02T04:03:15+08:00">2020-02-02</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/edge-computing-cloud-computing/" itemprop="url" rel="index"><span itemprop="name">edge computing, cloud computing</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span title="Symbols count in article">5.2k</span>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span title="Reading time">5 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>In the previous post, we know how to set up a code-review/debugging environment (some preparations are actually included in this post though). Now, let’s try to bring up the Kubeedge cloudcore (“edgecontroller” as for v1.0.0) on our k3s master. Again, this post assumes you already have a minimal k3s/k8s master up and running at the server, if you don’t know how to do so, feel free to visit my previous posts on guiding you through the k3s setup.</p>
+<h2 id="Step-1-Preparation-–-k3s-revisit"><a href="#Step-1-Preparation-–-k3s-revisit" class="headerlink" title="Step 1. Preparation – k3s revisit"></a>Step 1. Preparation – k3s revisit</h2><p>In my last post, I forgot to mention about my k3s environment (打脸). Since we are using Docker other than Containerd for k3s, I recommend to change the k3s configuration as following (and disable several services that we are not currently using):</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi /etc/systemd/system/k3s.service</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=Lightweight Kubernetes</span><br><span class="line">Documentation=https://k3s.io</span><br><span class="line">Wants=network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=notify</span><br><span class="line">EnvironmentFile=/etc/systemd/system/k3s.service.env</span><br><span class="line">ExecStartPre=-/sbin/modprobe br_netfilter</span><br><span class="line">ExecStartPre=-/sbin/modprobe overlay</span><br><span class="line">ExecStart=/usr/<span class="built_in">local</span>/bin/k3s \</span><br><span class="line">    server \</span><br><span class="line">    --no-deploy traefik \</span><br><span class="line">    --docker \</span><br><span class="line">    --no-deploy servicelb \</span><br><span class="line"></span><br><span class="line">KillMode=process</span><br><span class="line">Delegate=yes</span><br><span class="line">LimitNOFILE=infinity</span><br><span class="line">LimitNPROC=infinity</span><br><span class="line">LimitCORE=infinity</span><br><span class="line">TasksMax=infinity</span><br><span class="line">TimeoutStartSec=0</span><br><span class="line">Restart=always</span><br><span class="line">RestartSec=5s</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>Save the file and reload daemon then restart k3s service:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl restart k3s</span><br><span class="line"></span><br><span class="line"><span class="comment">#Check the k3s is successfully restarted with the modified configurations</span></span><br><span class="line">systemctl status k3s</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> Traefik is always restarting automatically with k3s. Thus to truly disable it, one should follow the commands mentioned in <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JhbmNoZXIvazNzL2lzc3Vlcy83MTcjaXNzdWVjb21tZW50LTU0MTg3NjU4OA==" title="https://github.com/rancher/k3s/issues/717#issuecomment-541876588">here<i class="fa fa-external-link"></i></span>.</p>
+</blockquote>
+<h2 id="Step-2-Build-amp-Deploy-cloudimage"><a href="#Step-2-Build-amp-Deploy-cloudimage" class="headerlink" title="Step 2. Build &amp; Deploy cloudimage"></a>Step 2. Build &amp; Deploy cloudimage</h2><p>Feel free to refresh your memory on how to build the Kubeedge cloudimage in my previous post. However if you only wish to test deploy, you may use mine here <code>r5by/kubeedge_edgecontroller:v1.0.0</code>. After the cloudimage is prepared, the next step is to generate certification files:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> build/cloud</span><br><span class="line">../tools/certgen.sh buildSecret | tee ./06-secret.yaml</span><br></pre></td></tr></table></figure>
+
+<p>This scripts will generate a bunch of ca/crt files under path <code>/etc/kubeedge/</code> and write the secrets to <code>06-secret.yaml</code>. Then next, we should copy and paste the kubeconfig to that location for later usage:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mkdir /etc/kubeedge/cloud</span><br><span class="line"><span class="comment"># k3s kubeconfig location</span></span><br><span class="line">cp /etc/rancher/k3s/k3s.yaml /etc/kubeedge/cloud/kubeconfig.yaml</span><br></pre></td></tr></table></figure>
+
+<h2 id="Step-3-Modify-the-other-yaml-files"><a href="#Step-3-Modify-the-other-yaml-files" class="headerlink" title="Step 3. Modify the other yaml files"></a>Step 3. Modify the other yaml files</h2><p>In the <code>build/cloud</code> path, several yaml files are listed:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> build/cloud/; ls</span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># 01-namespace.yaml          03-clusterrole.yaml        05-configmap.yaml          07-deployment.yaml         Dockerfile                  README_zh.md</span></span><br><span class="line"><span class="comment"># 02-serviceaccount.yaml     04-clusterrolebinding.yaml 06-secret.yaml             08-service.yaml.example    README.md</span></span><br></pre></td></tr></table></figure>
+
+<p>Change <code>03-clusterrole.yaml</code> as following:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">rbac.authorization.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ClusterRole</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">edgecontroller</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line"><span class="attr">    k8s-app:</span> <span class="string">kubeedge</span></span><br><span class="line"><span class="attr">    kubeedge:</span> <span class="string">edgecontroller</span></span><br><span class="line"><span class="attr">rules:</span></span><br><span class="line"><span class="attr">- apiGroups:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">""</span></span><br><span class="line"><span class="attr">  resources:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">nodes</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">nodes/status</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">configmaps</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">pods</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">pods/status</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">secrets</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">services</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">endpoints</span></span><br><span class="line"><span class="attr">  verbs:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">get</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">list</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">watch</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">update</span></span><br><span class="line"><span class="attr">- apiGroups:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">""</span></span><br><span class="line"><span class="attr">  resources:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">pods</span></span><br><span class="line"><span class="attr">  verbs:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">delete</span></span><br></pre></td></tr></table></figure>
+
+<p>Change <code>05-configmap.yaml</code> as following:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">edgecontroller</span></span><br><span class="line"><span class="attr">  namespace:</span> <span class="string">kubeedge</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line"><span class="attr">    k8s-app:</span> <span class="string">kubeedge</span></span><br><span class="line"><span class="attr">    kubeedge:</span> <span class="string">edgecontroller</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="string">controller.yaml:</span> <span class="string">|</span></span><br><span class="line"><span class="string"></span><span class="attr">    controller:</span></span><br><span class="line"><span class="attr">      kube:</span></span><br><span class="line"><span class="attr">        master:</span> <span class="attr">https://kubernetes.default.svc.cluster.local:443</span></span><br><span class="line"><span class="attr">        kubeconfig:</span> <span class="string">/etc/kubeedge/cloud/kubeconfig.yaml</span></span><br><span class="line"><span class="attr">        namespace:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">        content_type:</span> <span class="string">"application/vnd.kubernetes.protobuf"</span></span><br><span class="line"><span class="attr">        qps:</span> <span class="number">5</span></span><br><span class="line"><span class="attr">        burst:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">        node_update_frequency:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">    cloudhub:</span></span><br><span class="line"><span class="attr">      address:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line"><span class="attr">      port:</span> <span class="number">10000</span></span><br><span class="line"><span class="attr">      ca:</span> <span class="string">/etc/kubeedge/certs/rootCA.crt</span></span><br><span class="line"><span class="attr">      cert:</span> <span class="string">/etc/kubeedge/certs/edge.crt</span></span><br><span class="line"><span class="attr">      key:</span> <span class="string">/etc/kubeedge/certs/edge.key</span></span><br><span class="line"><span class="attr">      keepalive-interval:</span> <span class="number">30</span></span><br><span class="line"><span class="attr">      write-timeout:</span> <span class="number">30</span></span><br><span class="line"><span class="attr">      node-limit:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">    devicecontroller:</span></span><br><span class="line"><span class="attr">       kube:</span></span><br><span class="line"><span class="attr">         master:</span> <span class="attr">https://kubernetes.default.svc.cluster.local:443</span></span><br><span class="line"><span class="attr">         namespace:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">         content_type:</span> <span class="string">"application/vnd.kubernetes.protobuf"</span></span><br><span class="line"><span class="attr">         qps:</span> <span class="number">5</span></span><br><span class="line"><span class="attr">         burst:</span> <span class="number">10</span></span><br><span class="line"><span class="attr">         kubeconfig:</span> <span class="string">/etc/kubeedge/cloud/kubeconfig.yaml</span></span><br><span class="line">           <span class="string">logging.yaml:</span> <span class="string">|</span></span><br><span class="line"><span class="string"></span><span class="attr">    loggerLevel:</span> <span class="string">"INFO"</span></span><br><span class="line"><span class="attr">    enableRsyslog:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">    logFormatText:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    writers:</span> <span class="string">[stdout]</span></span><br><span class="line">  <span class="string">modules.yaml:</span> <span class="string">|</span></span><br><span class="line"><span class="string"></span><span class="attr">    modules:</span></span><br><span class="line"><span class="attr">      enabled:</span> <span class="string">[controller,</span> <span class="string">cloudhub]</span></span><br></pre></td></tr></table></figure>
+
+<p>Then verify if your <code>06-secret.yaml</code> is consistent with the ca/cert files in path <code>/etc/kubeedge/</code>, also copy and paste the <code>07-deployment.yaml</code> and <code>08-service.yaml</code> files from our last post. </p>
+<p>The configurations are now set. Use the shell script we write in last post to initialize start Kubeedge edgecontroller on the cloud.</p>
+<p>If everything works as expect, you should be able to verify the edgecontroller service is up:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># `kce` alias `k3s kubectl -n kubeedge`</span></span><br><span class="line">kce get pod</span><br><span class="line"><span class="comment">#Output</span></span><br><span class="line"><span class="comment">#NAME                            READY   STATUS    RESTARTS   AGE</span></span><br><span class="line"><span class="comment">#edgecontroller-5dc9955c-p2c7s   1/1     Running   0          5s</span></span><br><span class="line"></span><br><span class="line">kce get svc</span><br><span class="line"><span class="comment">#NAME             TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)                          AGE</span></span><br><span class="line"><span class="comment">#edgecontroller   NodePort   10.43.217.231   &lt;none&gt;        10000:30267/TCP,2345:32345/TCP   27s</span></span><br><span class="line"></span><br><span class="line">kce logs edgecontroller-5dc9955c-p2c7s</span><br><span class="line"><span class="comment"># No error messages should be found...</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Step-4-Trouble-Shooting"><a href="#Step-4-Trouble-Shooting" class="headerlink" title="Step 4. Trouble Shooting"></a>Step 4. Trouble Shooting</h2><p>Okay, I understand life is complicated. Unfortunately if you were caught by some weird error messages, don’t panic (even though the compiler does). Check the issues I mentioned in the previous post, and verify carefully each of these yaml files to make sure you understand what should be there. I also listed here several forum posts that may help with your issues:</p>
+<ul>
+<li>1) <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVybmV0ZXMvZG5zL2lzc3Vlcy8xMTA=" title="https://github.com/kubernetes/dns/issues/110">DNS issue, not the fix for mine<i class="fa fa-external-link"></i></span></li>
+<li>2) <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVybmV0ZXMva3ViZXJuZXRlcy9pc3N1ZXMvNjY0MzI=" title="https://github.com/kubernetes/kubernetes/issues/66432">DNS issue, again not the fix for mine<i class="fa fa-external-link"></i></span></li>
+<li>3) <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVybmV0ZXMvbWluaWt1YmUvaXNzdWVzLzQzNTA=" title="https://github.com/kubernetes/minikube/issues/4350">DNS issue, no luck either<i class="fa fa-external-link"></i></span></li>
+<li>4) <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVybmV0ZXMva3ViZWFkbS9pc3N1ZXMvMTkzI2lzc3VlY29tbWVudC0zMzAwNjA4NDg=" title="https://github.com/kubernetes/kubeadm/issues/193#issuecomment-330060848">DNS issue, finally works, fix mentioned in here<i class="fa fa-external-link"></i></span></li>
+<li>5) <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JhbmNoZXIvcmFuY2hlci9pc3N1ZXMvNjEzOQ==" title="https://github.com/rancher/rancher/issues/6139">DNS issue, not works for mine<i class="fa fa-external-link"></i></span></li>
+<li>6) <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JhbmNoZXIvazNzL2lzc3Vlcy8yNA==" title="https://github.com/rancher/k3s/issues/24">DNS issue, from k3s forum, not a solution for my case<i class="fa fa-external-link"></i></span></li>
+</ul>
+<p>Finally, if you have other questions/problems and solutions, please leave your comments below to share with others. In the next post, I’ll complete the Kubeedge cluster setup with the edgecore setup on both lovely Raspberry Pi’s.</p>
+
+    </div>
+
+    
+    
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>ㄟ(●′ω`●)ㄏ</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechat.png" alt="R5by WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/kubeedge-k3s/" rel="tag"># kubeedge, k3s</a>
+          
+        </div>
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/02/01/kubeedge-on-k3s-1/" rel="next" title="k3s+kubeedge (1) Code Review/Debugging Environment Setup">
+                <i class="fa fa-chevron-left"></i> k3s+kubeedge (1) Code Review/Debugging Environment Setup
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2020/02/02/kubeedge-on-k3s-3/" rel="prev" title="k3s+kubeedge (3) Deploy Edge Core on Raspberry Pi 3">
+                k3s+kubeedge (3) Deploy Edge Core on Raspberry Pi 3 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <!-- customize link to "about me" -->
+    <a href="/about/" rel="section">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="R5by"></a>
+  <p class="site-author-name" itemprop="name">R5by</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3I1Ynk=" title="GitHub &rarr; https://github.com/r5by"><i class="fa fa-fw fa-github"></i>GitHub</span>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-1-Preparation-–-k3s-revisit"><span class="nav-number">1.</span> <span class="nav-text">Step 1. Preparation – k3s revisit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-2-Build-amp-Deploy-cloudimage"><span class="nav-number">2.</span> <span class="nav-text">Step 2. Build &amp; Deploy cloudimage</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-3-Modify-the-other-yaml-files"><span class="nav-number">3.</span> <span class="nav-text">Step 3. Modify the other yaml files</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Step-4-Trouble-Shooting"><span class="nav-number">4.</span> <span class="nav-text">Step 4. Trouble Shooting</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">R5by</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    
+    <span title="Symbols count total">52k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    
+    <span title="Reading time total">48 mins.</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+  <script src="/js/exturl.js?v=7.3.0"></script>
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id: 21460,
+      el: 'wpac-rating',
+      color: 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  </script>
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'e6801dba21d5153fca76',
+    clientSecret: '2b1f89619ca1f0c197aea0e432c0c71b9008946c',
+    repo: 'r5by.github.io',
+    owner: 'r5by',
+    admin: ['r5by'],
+    id: md5(location.pathname),
+      language: 'en',
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+    <!-- 页面点击小红心 -->
+
+
+<!-- 点击烟花效果 -->
+
+
+<!-- Digital rain background -->
+
+
+<!-- matrix digital rain -->
+
+  <div class="background" style="position: fixed; right: 0px; bottom: 0px;min-width: 100%;min-height: 100%;height: auto;width: auto;z-index: -1;">
+      <rain></rain>
+  </div>
+  <script type="text/javascript" src="/js/mtxdigitalrain.js"></script>
+
+
+<!-- subtitle text changing -->
+<script type="text/javascript" src="/js/decryption.js"></script>
+
+</body>
+</html>

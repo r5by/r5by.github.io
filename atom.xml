@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Ruby-&#39;s Blog</title>
+  <title>R5by&#39;s Blog</title>
   
   <subtitle>Welcome</subtitle>
   <link href="/atom.xml" rel="self"/>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Kubeedge Examples (Temperature Sensor Demo)</title>
-    <link href="https://ruby-.github.io/2020/03/04/kubeedge-temperature-demo/"/>
-    <id>https://ruby-.github.io/2020/03/04/kubeedge-temperature-demo/</id>
+    <link href="https://ruby-.github.io/2020/03/05/kubeedge-temperature-demo/"/>
+    <id>https://ruby-.github.io/2020/03/05/kubeedge-temperature-demo/</id>
     <published>2020-03-04T21:45:05.000Z</published>
     <updated>2020-03-05T04:54:34.000Z</updated>
     
@@ -44,8 +44,8 @@
   
   <entry>
     <title>k3s+kubeedge (3) Deploy Edge Core on Raspberry Pi 3</title>
-    <link href="https://ruby-.github.io/2020/02/01/kubeedge-on-k3s-3/"/>
-    <id>https://ruby-.github.io/2020/02/01/kubeedge-on-k3s-3/</id>
+    <link href="https://ruby-.github.io/2020/02/02/kubeedge-on-k3s-3/"/>
+    <id>https://ruby-.github.io/2020/02/02/kubeedge-on-k3s-3/</id>
     <published>2020-02-01T21:37:32.000Z</published>
     <updated>2020-02-01T23:13:17.000Z</updated>
     
@@ -70,8 +70,8 @@
   
   <entry>
     <title>k3s+kubeedge (2) Deploy the Cloud Core (edgecontroller)</title>
-    <link href="https://ruby-.github.io/2020/02/01/kubeedge-on-k3s-2/"/>
-    <id>https://ruby-.github.io/2020/02/01/kubeedge-on-k3s-2/</id>
+    <link href="https://ruby-.github.io/2020/02/02/kubeedge-on-k3s-2/"/>
+    <id>https://ruby-.github.io/2020/02/02/kubeedge-on-k3s-2/</id>
     <published>2020-02-01T20:03:15.000Z</published>
     <updated>2020-02-01T23:13:03.000Z</updated>
     
@@ -96,8 +96,8 @@
   
   <entry>
     <title>k3s+kubeedge (1) Code Review/Debugging Environment Setup</title>
-    <link href="https://ruby-.github.io/2020/01/31/kubeedge-on-k3s-1/"/>
-    <id>https://ruby-.github.io/2020/01/31/kubeedge-on-k3s-1/</id>
+    <link href="https://ruby-.github.io/2020/02/01/kubeedge-on-k3s-1/"/>
+    <id>https://ruby-.github.io/2020/02/01/kubeedge-on-k3s-1/</id>
     <published>2020-02-01T03:25:25.000Z</published>
     <updated>2020-02-01T23:13:40.000Z</updated>
     
@@ -122,8 +122,8 @@
   
   <entry>
     <title>k3s Dev (2) Vagrant + VirtualBox Dev.</title>
-    <link href="https://ruby-.github.io/2019/10/30/k3s-dev-2/"/>
-    <id>https://ruby-.github.io/2019/10/30/k3s-dev-2/</id>
+    <link href="https://ruby-.github.io/2019/10/31/k3s-dev-2/"/>
+    <id>https://ruby-.github.io/2019/10/31/k3s-dev-2/</id>
     <published>2019-10-30T19:19:14.000Z</published>
     <updated>2019-10-30T22:34:09.000Z</updated>
     
@@ -148,8 +148,8 @@
   
   <entry>
     <title>k3s Dev (1) Environment Setup</title>
-    <link href="https://ruby-.github.io/2019/10/10/k3s-dev-1/"/>
-    <id>https://ruby-.github.io/2019/10/10/k3s-dev-1/</id>
+    <link href="https://ruby-.github.io/2019/10/11/k3s-dev-1/"/>
+    <id>https://ruby-.github.io/2019/10/11/k3s-dev-1/</id>
     <published>2019-10-10T20:07:36.000Z</published>
     <updated>2019-10-30T22:28:01.000Z</updated>
     
@@ -175,8 +175,8 @@
   
   <entry>
     <title>k3s Basics</title>
-    <link href="https://ruby-.github.io/2019/09/29/k3s-basics/"/>
-    <id>https://ruby-.github.io/2019/09/29/k3s-basics/</id>
+    <link href="https://ruby-.github.io/2019/09/30/k3s-basics/"/>
+    <id>https://ruby-.github.io/2019/09/30/k3s-basics/</id>
     <published>2019-09-29T22:45:11.000Z</published>
     <updated>2019-10-12T22:09:41.000Z</updated>
     
@@ -202,8 +202,8 @@
   
   <entry>
     <title>k8s Basics</title>
-    <link href="https://ruby-.github.io/2019/09/17/k8s-basics/"/>
-    <id>https://ruby-.github.io/2019/09/17/k8s-basics/</id>
+    <link href="https://ruby-.github.io/2019/09/18/k8s-basics/"/>
+    <id>https://ruby-.github.io/2019/09/18/k8s-basics/</id>
     <published>2019-09-18T01:56:46.000Z</published>
     <updated>2019-10-12T22:10:19.000Z</updated>
     

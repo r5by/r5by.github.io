@@ -124,10 +124,10 @@ glitch_it.addEventListener("mouseenter", function( event ) {
               decryptText(glitch_this, 'Re：从零开始的程序猿生活');
             break;
             case 2:
-              decryptText(glitch_this, '為美好的世界獻上bug！');
+              decryptText(glitch_this, '轉生成兔兔又怎樣！');
             break;
             default:
-              decryptText(glitch_this, '這個攻城獅明明超強卻過分慎重');
+              decryptText(glitch_this, '關於我轉生變成程序猿這檔事');
   }
 }, false);
 

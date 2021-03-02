@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Kubeedge Examples (Temperature Sensor Demo)</title>
-    <url>/2020/03/04/kubeedge-temperature-demo/</url>
+    <url>/2020/03/05/kubeedge-temperature-demo/</url>
     <content><![CDATA[<p>This post explain the setup of our kubeedge temperature demo in lab, which can be found in <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVlZGdlL2V4YW1wbGVzL3RyZWUvbWFzdGVyL2t1YmVlZGdlLXRlbXBlcmF0dXJlLWRlbW8=" title="https://github.com/kubeedge/examples/tree/master/kubeedge-temperature-demo">here<i class="fa fa-external-link"></i></span>. I’ve spent too much time on this due to the lack of documentation, thus I’ve documented our experience steps in details here just in case someone may find this useful.</p>
 <h2 id="Pre-requisites"><a href="#Pre-requisites" class="headerlink" title="Pre-requisites"></a>Pre-requisites</h2><p>To run this demo, a valid deployment of Kubeedge on K8s cluster is required. If you haven’t met this pre-requisite, please refer to my previous posts on “k3s+kubeedge setups” on deploying k3s (v0.10.2) and kubeedge (v1.0.0). Or, you may stay with me in this post to follow how did we setup kubeedge in release 1.1.0 starting from <a href>here</a>.</p>
 <p>To check whether your kubeedge cluster is functioning in the correct manner, simply do:</p>
@@ -127,7 +127,7 @@
   </entry>
   <entry>
     <title>k3s+kubeedge (3) Deploy Edge Core on Raspberry Pi 3</title>
-    <url>/2020/02/01/kubeedge-on-k3s-3/</url>
+    <url>/2020/02/02/kubeedge-on-k3s-3/</url>
     <content><![CDATA[<p>This post finalize the setup of Kubeedge on K3S cluster. The edge part of the Kubeedge connect with the API server through CloudHub in the cloud core (i.e. “edgecontroller”). We will deploy the edgecore on two Raspberry Pi 3 nodes.</p>
 <h2 id="Step-1-Check-the-current-environment"><a href="#Step-1-Check-the-current-environment" class="headerlink" title="Step 1. Check the current environment"></a>Step 1. Check the current environment</h2><p>Before you follow the rest of this post, please make sure you have your k3s master and kubeedge edgecontroller service up &amp; running:</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Input: On master node</span></span><br><span class="line"><span class="comment">## Verify the k3s master</span></span><br><span class="line">kc get node</span><br><span class="line"><span class="comment"># Output:</span></span><br><span class="line"><span class="comment"># aces-diamonds-ace.localdomain   Ready      master   116d   v1.16.2-k3s.1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Verify the edgecontroller</span></span><br><span class="line">kce get svc</span><br><span class="line"><span class="comment"># Output: </span></span><br><span class="line"><span class="comment"># NAME             TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)                          AGE</span></span><br><span class="line"><span class="comment"># edgecontroller   NodePort   10.43.217.231   &lt;none&gt;        10000:30267/TCP,2345:32345/TCP   38m</span></span><br></pre></td></tr></table></figure>
@@ -181,7 +181,7 @@
   </entry>
   <entry>
     <title>k3s+kubeedge (2) Deploy the Cloud Core (edgecontroller)</title>
-    <url>/2020/02/01/kubeedge-on-k3s-2/</url>
+    <url>/2020/02/02/kubeedge-on-k3s-2/</url>
     <content><![CDATA[<p>In the previous post, we know how to set up a code-review/debugging environment (some preparations are actually included in this post though). Now, let’s try to bring up the Kubeedge cloudcore (“edgecontroller” as for v1.0.0) on our k3s master. Again, this post assumes you already have a minimal k3s/k8s master up and running at the server, if you don’t know how to do so, feel free to visit my previous posts on guiding you through the k3s setup.</p>
 <h2 id="Step-1-Preparation-–-k3s-revisit"><a href="#Step-1-Preparation-–-k3s-revisit" class="headerlink" title="Step 1. Preparation – k3s revisit"></a>Step 1. Preparation – k3s revisit</h2><p>In my last post, I forgot to mention about my k3s environment (打脸). Since we are using Docker other than Containerd for k3s, I recommend to change the k3s configuration as following (and disable several services that we are not currently using):</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># vi /etc/systemd/system/k3s.service</span></span><br><span class="line">[Unit]</span><br><span class="line">Description=Lightweight Kubernetes</span><br><span class="line">Documentation=https://k3s.io</span><br><span class="line">Wants=network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=notify</span><br><span class="line">EnvironmentFile=/etc/systemd/system/k3s.service.env</span><br><span class="line">ExecStartPre=-/sbin/modprobe br_netfilter</span><br><span class="line">ExecStartPre=-/sbin/modprobe overlay</span><br><span class="line">ExecStart=/usr/<span class="built_in">local</span>/bin/k3s \</span><br><span class="line">    server \</span><br><span class="line">    --no-deploy traefik \</span><br><span class="line">    --docker \</span><br><span class="line">    --no-deploy servicelb \</span><br><span class="line"></span><br><span class="line">KillMode=process</span><br><span class="line">Delegate=yes</span><br><span class="line">LimitNOFILE=infinity</span><br><span class="line">LimitNPROC=infinity</span><br><span class="line">LimitCORE=infinity</span><br><span class="line">TasksMax=infinity</span><br><span class="line">TimeoutStartSec=0</span><br><span class="line">Restart=always</span><br><span class="line">RestartSec=5s</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
@@ -232,7 +232,7 @@
   </entry>
   <entry>
     <title>k3s+kubeedge (1) Code Review/Debugging Environment Setup</title>
-    <url>/2020/01/31/kubeedge-on-k3s-1/</url>
+    <url>/2020/02/01/kubeedge-on-k3s-1/</url>
     <content><![CDATA[<p><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVlZGdlL2t1YmVlZGdl" title="https://github.com/kubeedge/kubeedge">Kubeedge<i class="fa fa-external-link"></i></span> is a CNCF open source project that aims at extending the existing orchestration system (Kubernetes)’s container management capability to the edge. It provides core infrastructure support for networking, application deployment and metadata synchronization between cloud and edge along with the Kubernetes project. In this series of posts, we’ll see how to deploy Kubeedge on our existing k3s cluster and set up a code review environment where we may set up breakpoint and step-by-step inspect its functionality. This post focuses on the latter part.</p>
 <p>For the purpose of reading code and more importantly, understanding and fixing the errors, it’s better to have a debugging environment set up first. As for our deployment, we currently have one PC server as the master host to deploy the cloud part, and two Raspberry Pi 3 as the worker nodes to deploy the edge part. The main components of Kubeedge’s cloud/edge parts can be viewed from the structure pictured in below:</p>
 <p><img src="https://github.com/kubeedge/kubeedge/raw/master/docs/images/kubeedge_arch.png" alt="image"></p>
@@ -302,7 +302,7 @@
   </entry>
   <entry>
     <title>k3s Dev (2) Vagrant + VirtualBox Dev.</title>
-    <url>/2019/10/30/k3s-dev-2/</url>
+    <url>/2019/10/31/k3s-dev-2/</url>
     <content><![CDATA[<p>This post aims to help you gain a better development experience with rancher/k3s project. As an old Chinese saying implies: “A logger should always sharpen his axe before going to do his job” (工欲善其事，必先利其器). So in what follows, you may gain experiences on:</p>
 <ul>
 <li>Adopt k3s’s Vagrantfile to launch our virtual dev environment</li>
@@ -367,7 +367,7 @@
   </entry>
   <entry>
     <title>k3s Dev (1) Environment Setup</title>
-    <url>/2019/10/10/k3s-dev-1/</url>
+    <url>/2019/10/11/k3s-dev-1/</url>
     <content><![CDATA[<p>This post shows in steps how to set up a dev environment for <strong>k3s</strong> project.</p>
 <h2 id="Step-1-Preparation"><a href="#Step-1-Preparation" class="headerlink" title="Step 1. Preparation"></a>Step 1. Preparation</h2><p>The following list shows my local development environment setup:</p>
 <p>For code review &amp; build purpose:</p>
@@ -459,7 +459,7 @@
   </entry>
   <entry>
     <title>k3s Basics</title>
-    <url>/2019/09/29/k3s-basics/</url>
+    <url>/2019/09/30/k3s-basics/</url>
     <content><![CDATA[<p>This post explains my first impression with <strong>k3s</strong>.</p>
 <h2 id="Motivation"><a href="#Motivation" class="headerlink" title="Motivation"></a>Motivation</h2><p>In order to work on k3s project, one needs to learn to use it at first. This post summarize the main steps of deploying <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3JhbmNoZXIvazNz" title="https://github.com/rancher/k3s">k3s<i class="fa fa-external-link"></i></span> in our local lab environment and also on AWS EC2.</p>
 <h2 id="Local-k3s-cluster-Setup"><a href="#Local-k3s-cluster-Setup" class="headerlink" title="Local k3s cluster Setup"></a>Local k3s cluster Setup</h2><p>The basic hardware setup for this demo is as the same as the last post on k8s demo (3 VMs), feel free to apply the following methods with the latest released k3s on your own Raspbian nodes, it should work as we also tested it. However, the latest released version (0.9.1 at the time of this post) of k3s has some ca-related issues for an agent to join the master node (if a full ca-enabled Kubernetes cluster has been configured on these nodes), thus an earlier release version (0.2.0) was used for this section.</p>
@@ -559,7 +559,7 @@
   </entry>
   <entry>
     <title>k8s Basics</title>
-    <url>/2019/09/17/k8s-basics/</url>
+    <url>/2019/09/18/k8s-basics/</url>
     <content><![CDATA[<p>This post demonstrate some Kubernetes basic commends.</p>
 <h2 id="Server-Overview"><a href="#Server-Overview" class="headerlink" title="Server Overview"></a>Server Overview</h2><p>We have setup 3 virtual machines，each has 1 cpu and 1GB memory. Details：</p>
 <table>
