@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="zh-CN, en, default">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Play:300,300italic,400,400italic,700,700italic|Press Start 2P:300,300italic,400,400italic,700,700italic|Share Tech Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.3.0',
+    sidebar: {"position":"right","width":320,"display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":true},
+    copycode: {"enable":true,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: 'search.xml'
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="This post explain the setup of our kubeedge temperature demo in lab, which can be found in here. I’ve spent too much time on this due to the lack of documentation, thus I’ve documented our experience">
+<meta name="keywords" content="kubeedge, k3s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kubeedge Examples (Temperature Sensor Demo)">
+<meta property="og:url" content="https://ruby-.github.io/2020/03/04/kubeedge-temperature-demo/index.html">
+<meta property="og:site_name" content="R5by&#39;s Blog">
+<meta property="og:description" content="This post explain the setup of our kubeedge temperature demo in lab, which can be found in here. I’ve spent too much time on this due to the lack of documentation, thus I’ve documented our experience">
+<meta property="og:locale" content="zh-CN, en, default">
+<meta property="og:updated_time" content="2020-03-05T04:54:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kubeedge Examples (Temperature Sensor Demo)">
+<meta name="twitter:description" content="This post explain the setup of our kubeedge temperature demo in lab, which can be found in here. I’ve spent too much time on this due to the lack of documentation, thus I’ve documented our experience">
+  <link rel="alternate" href="/atom.xml" title="R5by's Blog" type="application/atom+xml">
+  <link rel="canonical" href="https://ruby-.github.io/2020/03/04/kubeedge-temperature-demo/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<!-- gitter chat room -->
+
+<!-- prevent google translate slow down rain effect-->
+
+  <meta name="google" content="notranslate">
+
+  <title>Kubeedge Examples (Temperature Sensor Demo) | R5by's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN, en, default">
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/r5by" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">R5by's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 id="glitch_this" class="site-subtitle" itemprop="description">Welcome</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-search">
+          <a href="javascript:;" class="popup-trigger">
+          
+            <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+    
+
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+    </div>
+</nav>
+
+  
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+    <div class="reading-progress-bar"></div>
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://ruby-.github.io/2020/03/04/kubeedge-temperature-demo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="R5by">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="R5by's Blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h2 class="post-title" itemprop="name headline">Kubeedge Examples (Temperature Sensor Demo)
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-03-04 15:45:05" itemprop="dateCreated datePublished" datetime="2020-03-04T15:45:05+08:00">2020-03-04</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-03-05 12:54:34" itemprop="dateModified" datetime="2020-03-05T12:54:34+08:00">2020-03-05</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/edge-computing-cloud-computing/" itemprop="url" rel="index"><span itemprop="name">edge computing, cloud computing</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          <br>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span title="Symbols count in article">9.6k</span>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span title="Reading time">9 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>This post explain the setup of our kubeedge temperature demo in lab, which can be found in <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVlZGdlL2V4YW1wbGVzL3RyZWUvbWFzdGVyL2t1YmVlZGdlLXRlbXBlcmF0dXJlLWRlbW8=" title="https://github.com/kubeedge/examples/tree/master/kubeedge-temperature-demo">here<i class="fa fa-external-link"></i></span>. I’ve spent too much time on this due to the lack of documentation, thus I’ve documented our experience steps in details here just in case someone may find this useful.</p>
+<h2 id="Pre-requisites"><a href="#Pre-requisites" class="headerlink" title="Pre-requisites"></a>Pre-requisites</h2><p>To run this demo, a valid deployment of Kubeedge on K8s cluster is required. If you haven’t met this pre-requisite, please refer to my previous posts on “k3s+kubeedge setups” on deploying k3s (v0.10.2) and kubeedge (v1.0.0). Or, you may stay with me in this post to follow how did we setup kubeedge in release 1.1.0 starting from <a href>here</a>.</p>
+<p>To check whether your kubeedge cluster is functioning in the correct manner, simply do:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># $KUBEEDGE=&#123;your-path-to-kubeedge&#125;</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$KUBEEDGE</span>/build</span><br><span class="line"></span><br><span class="line"><span class="comment"># change deployment.yaml to deployment-armv7.yaml if your edge node is on the RPi 3</span></span><br><span class="line">kc apply -f deployment.yaml</span><br></pre></td></tr></table></figure>
+
+<p>If everything is done correctly, the nginx deployment should be up and running and you may verify the pod’s status by <code>kc get pod</code>. At this point, you may start to follow their documentation on deploying the examples, you’ll probably get stuck on some errors and couldn’t figure where goes wrong, if that’s the case for you please continue reading (o.w. you may close this page and free to leave :D).</p>
+<h2 id="Upgrade-to-Kubeedge-v1-1-0"><a href="#Upgrade-to-Kubeedge-v1-1-0" class="headerlink" title="Upgrade to Kubeedge v1.1.0"></a>Upgrade to Kubeedge v1.1.0</h2><p>At the beginning when I failed following their documentation, I thought that was caused by the incompatibility of the versions (the demo came out several months after they release v1.0.0). So I made a decision to upgrade the kubeedge version from v1.0.0 to v1.1.0. This section states one way in which you may deploy kubeedge v1.1.0 with a valid k3s master in your own environment.</p>
+<blockquote>
+<p>Use <code>kc -n kube-system get pod</code> to get a list of deployed k3s master pods. Refer to my previous posts to see how to disable the modules we do not need. Check the log of your coredns to ensure there is no error message (o.w. flush the iptable and kill these pods twice to solve the issues related to udp connection).</p>
+</blockquote>
+<p>The deployment of cloudcore of kubeedge v1.1.0 is similar to v1.0.0, just remember to change all “edgecontroller” in the yaml files under <code>build/cloud/</code> path to “edgecore”. Also, the creation of device/deviceModel CRDs is no longer an optional in this version, as soon as the cloudcore is up, one should immediately apply these resources before moving on:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Create CRDs: devices_v1alpha1_device.yaml &amp; devices_v1alpha1_devicemodel.yaml</span></span><br><span class="line"><span class="comment"># A quick reference can be found here: https://github.com/kubeedge/kubeedge/blob/master/docs/proposals/device-crd.md</span></span><br><span class="line">kc create -f build/crds/devices</span><br></pre></td></tr></table></figure>
+
+<p>For the edge part, we suggest deploying both edgecore and mqtt broker at bare metal:</p>
+<ul>
+<li><p>1) To bring up a MQTT broker, simply install mosquitto and issue <code>mosquitto -v -p 1883</code> (We suggest to keep the terminal in order to verify the log infos);</p>
+</li>
+<li><p>2) Cross-compile the edgecore and scp it to the RPi 3;</p>
+</li>
+<li><p>3) Copy and modify the <code>edge/conf</code> files to the Rpi 3 to match your own environment (make sure the <code>conf/</code> stays at the same path with the edgecore binary);</p>
+</li>
+<li><p>4) Launch the edgecore from terminal by <code>./edgecore</code> to keep watching the log information.</p>
+</li>
+</ul>
+<p>If you are not sure whether your <code>conf/edge.yaml</code> file is correct, you may refer my settings in below (change wherever I’ve marked in angle brackets):</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">mqtt:</span></span><br><span class="line"><span class="attr">    server:</span> <span class="attr">tcp://&lt;mqtt-server-ip&gt;:1883</span> <span class="comment"># external mqtt broker url.</span></span><br><span class="line"><span class="attr">    internal-server:</span> <span class="attr">tcp://127.0.0.1:1884</span> <span class="comment"># internal mqtt broker url.</span></span><br><span class="line"><span class="attr">    mode:</span> <span class="number">2</span> <span class="comment"># 0: internal mqtt broker enable only. 1: internal and external mqtt broker enable. 2: external mqtt broker enable only.</span></span><br><span class="line"><span class="attr">    qos:</span> <span class="number">0</span> <span class="comment"># 0: QOSAtMostOnce, 1: QOSAtLeastOnce, 2: QOSExactlyOnce.</span></span><br><span class="line"><span class="attr">    retain:</span> <span class="literal">false</span> <span class="comment"># if the flag set true, server will store the message and can be delivered to future subscribers.</span></span><br><span class="line"><span class="attr">    session-queue-size:</span> <span class="number">100</span> <span class="comment"># A size of how many sessions will be handled. default to 100.</span></span><br><span class="line"></span><br><span class="line"><span class="attr">edgehub:</span></span><br><span class="line"><span class="attr">    websocket:</span></span><br><span class="line"><span class="attr">        url:</span> <span class="attr">wss://&lt;cloudcore-server-ip&gt;:&lt;port&gt;/e632aba927ea4ac2b575ec1603d56f10/&lt;edge-node-id&gt;/events</span></span><br><span class="line"><span class="attr">        certfile:</span> <span class="string">/etc/kubeedge/certs/edge.crt</span></span><br><span class="line"><span class="attr">        keyfile:</span> <span class="string">/etc/kubeedge/certs/edge.key</span></span><br><span class="line"><span class="attr">        handshake-timeout:</span> <span class="number">30</span> <span class="comment">#second</span></span><br><span class="line"><span class="attr">        write-deadline:</span> <span class="number">15</span> <span class="comment"># second</span></span><br><span class="line"><span class="attr">        read-deadline:</span> <span class="number">15</span> <span class="comment"># second</span></span><br><span class="line"><span class="attr">    quic:</span></span><br><span class="line"><span class="attr">        url:</span> <span class="string">&lt;cloudcore-server-ip&gt;:10001</span></span><br><span class="line"><span class="attr">        cafile:</span> <span class="string">/etc/kubeedge/ca/rootCA.crt</span></span><br><span class="line"><span class="attr">        certfile:</span> <span class="string">/etc/kubeedge/certs/edge.crt</span></span><br><span class="line"><span class="attr">        keyfile:</span> <span class="string">/etc/kubeedge/certs/edge.key</span></span><br><span class="line"><span class="attr">        handshake-timeout:</span> <span class="number">30</span> <span class="comment">#second</span></span><br><span class="line"><span class="attr">        write-deadline:</span> <span class="number">15</span> <span class="comment"># second</span></span><br><span class="line"><span class="attr">        read-deadline:</span> <span class="number">15</span> <span class="comment"># second</span></span><br><span class="line"><span class="attr">    controller:</span></span><br><span class="line"><span class="attr">        protocol:</span> <span class="string">websocket</span> <span class="comment"># websocket, quic</span></span><br><span class="line"><span class="attr">        heartbeat:</span> <span class="number">15</span>  <span class="comment"># second</span></span><br><span class="line"><span class="attr">        project-id:</span> <span class="string">e632aba927ea4ac2b575ec1603d56f10</span></span><br><span class="line"><span class="attr">        node-id:</span> <span class="string">&lt;edge-node-id&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">edged:</span></span><br><span class="line"><span class="attr">    register-node-namespace:</span> <span class="string">default</span></span><br><span class="line"><span class="attr">    hostname-override:</span> <span class="string">&lt;edge-node-id&gt;</span> </span><br><span class="line"><span class="attr">    interface-name:</span> <span class="string">&lt;edge-node-net-interface&gt;</span></span><br><span class="line"><span class="attr">    edged-memory-capacity-bytes:</span> <span class="number">7852396000</span></span><br><span class="line"><span class="attr">    node-status-update-frequency:</span> <span class="number">10</span> <span class="comment"># second</span></span><br><span class="line"><span class="attr">    device-plugin-enabled:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">    gpu-plugin-enabled:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">    image-gc-high-threshold:</span> <span class="number">80</span> <span class="comment"># percent</span></span><br><span class="line"><span class="attr">    image-gc-low-threshold:</span> <span class="number">40</span> <span class="comment"># percent</span></span><br><span class="line"><span class="attr">    maximum-dead-containers-per-container:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">    docker-address:</span> <span class="attr">unix:///var/run/docker.sock</span></span><br><span class="line"><span class="attr">    runtime-type:</span> <span class="string">docker</span></span><br><span class="line"><span class="attr">    remote-runtime-endpoint:</span> <span class="attr">unix:///var/run/dockershim.sock</span></span><br><span class="line"><span class="attr">    remote-image-endpoint:</span> <span class="attr">unix:///var/run/dockershim.sock</span></span><br><span class="line"><span class="attr">    runtime-request-timeout:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">    podsandbox-image:</span> <span class="string">&lt;select-right-one-from-following-comments&gt;</span> <span class="comment"># kubeedge/pause:3.1 for x86 arch , kubeedge/pause-arm:3.1 for arm arch, kubeedge/pause-arm64 for arm64 arch</span></span><br><span class="line"><span class="attr">    image-pull-progress-deadline:</span> <span class="number">60</span> <span class="comment"># second</span></span><br><span class="line"><span class="attr">    cgroup-driver:</span> <span class="string">cgroupfs</span> <span class="comment"># <span class="doctag">NOTE:</span> Need to be consistent with your docker cgroup driver, o.w. the node status will always be "NotReady"</span></span><br><span class="line"><span class="attr">    node-ip:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">    cluster-dns:</span> <span class="string">""</span></span><br><span class="line"><span class="attr">    cluster-domain:</span> <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="attr">mesh:</span></span><br><span class="line"><span class="attr">    loadbalance:</span></span><br><span class="line"><span class="attr">        strategy-name:</span> <span class="string">RoundRobin</span></span><br></pre></td></tr></table></figure>
+
+<p>If the configuration is correct, you should be able to see some log information about connection between kubeedge cloudcore and edgecore, and edgecore with the mqtt broker. Generally speaking, the edgecore is responsible to get the sensor reading through MQTT subscription, and then push that data upstream to the cloudcore. So next we are about to show how to create/deploy a kubeedge mapper to collect and publish the sensor data.</p>
+<blockquote>
+<p>Don’t forget to create the node resource via <code>kc create -f build/node.json</code> to include this newly started edge node to the cluster. If correct, one should be able to see the node in “Ready” status.</p>
+</blockquote>
+<h2 id="The-Kubeedge-Mapper"><a href="#The-Kubeedge-Mapper" class="headerlink" title="The Kubeedge Mapper"></a>The Kubeedge Mapper</h2><p>The mapper source code for this demo is contained in <code>$GOPATH/src/github.com/kubeedge/examples/kubeedge-temperature-demo/temperature-mapper/main.go</code>. Since the size of this source is quite small, we suggest to obtain its source code and directly build it on your edge node for deployment. However, if you simply need it for deployment, feel free to grab mine in <code>r5by/kubeedge-temperature-mapper:v1.0.0</code> for RPi 3 (o.w. you may use <code>docker build -t &lt;your-image-name&gt; .</code> command to prepare the mapper for your own usage).</p>
+<blockquote>
+<p>Remember, if you use <code>docker build</code> command, your result image can be only deployed on that architecture (e.g. build on RPi 3, only run on arm). </p>
+</blockquote>
+<p>The mapper basically does two things, read sensor data from the pin and publish the readings to the mqtt broker. A detailed explanation of each modules can be found <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVlZGdlL2t1YmVlZGdlL2Jsb2IvbWFzdGVyL2RvY3MvbW9kdWxlcy9jbG91ZC9kZXZpY2VfY29udHJvbGxlci5tZA==" title="https://github.com/kubeedge/kubeedge/blob/master/docs/modules/cloud/device_controller.md">here<i class="fa fa-external-link"></i></span>. And the correct way to connect the sensor in the real physical world is also shown in their <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2t1YmVlZGdlL2V4YW1wbGVzL3RyZWUvbWFzdGVyL2t1YmVlZGdlLXRlbXBlcmF0dXJlLWRlbW8=" title="https://github.com/kubeedge/examples/tree/master/kubeedge-temperature-demo">github<i class="fa fa-external-link"></i></span> repo. Do the following on your cloud side once you obtain the source codes:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="variable">$GOPATH</span>/src/github.com/kubeedge/examples/kubeedge-temperature-demo/crds</span><br><span class="line"></span><br><span class="line">kubectl apply -f devicemodel.yaml</span><br><span class="line">kubectl apply -f device.yaml</span><br></pre></td></tr></table></figure>
+
+<p><em>NOTE</em>: Here, stop! I need you to verify if kubeedge indeed creates the crd instances by:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Go to the same path where you put your edgecore on your edge node, you should be able to see an `edge.db` file,</span></span><br><span class="line">sqlite3 edge.db</span><br><span class="line"></span><br><span class="line"><span class="comment"># Inside the sqlite CLI interface:</span></span><br><span class="line">&gt; .table <span class="comment"># you should see several tables including devices</span></span><br><span class="line">&gt; .header on</span><br><span class="line">&gt; .mode column</span><br><span class="line">&gt; <span class="built_in">read</span> * from devices; <span class="comment"># if nothing is listed here, you fail!</span></span><br><span class="line">&gt; .<span class="built_in">exit</span> <span class="comment"># quit sqlite after verification</span></span><br></pre></td></tr></table></figure>
+
+<p>Now, what could cause your troubles here are:</p>
+<ul>
+<li>1) You misconfigured your crd instances. Double check your <code>device.yaml</code> file, it’s like this:</li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">devices.kubeedge.io/v1alpha1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Device</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">temperature</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line"><span class="attr">    description:</span> <span class="string">'temperature'</span></span><br><span class="line"><span class="attr">    manufacturer:</span> <span class="string">'test'</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  deviceModelRef:</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">temperature-model</span></span><br><span class="line"><span class="attr">  nodeSelector:</span></span><br><span class="line"><span class="attr">    nodeSelectorTerms:</span></span><br><span class="line"><span class="attr">      - matchExpressions:</span></span><br><span class="line"><span class="attr">          - key:</span> <span class="string">''</span></span><br><span class="line"><span class="attr">            operator:</span> <span class="string">In</span></span><br><span class="line"><span class="attr">            values:</span></span><br><span class="line"><span class="bullet">              -</span> <span class="string">&lt;your-node-id&gt;</span> <span class="comment"># NOTE here, this should be your node id other than its label!!</span></span><br><span class="line"><span class="attr">status:</span></span><br><span class="line"><span class="attr">  twins:</span></span><br><span class="line"><span class="attr">    - propertyName:</span> <span class="string">temperature-status</span></span><br><span class="line"><span class="attr">      desired:</span></span><br><span class="line"><span class="attr">        metadata:</span></span><br><span class="line"><span class="attr">          type:</span> <span class="string">string</span></span><br><span class="line"><span class="attr">        value:</span> <span class="string">''</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2) You made some changes according to 1) but still it’s not there. This is because the kubeedge doesn’t re-apply your changes if you simply do <code>kc apply -f crds</code>. You will need to first delete these crds then re-create them to enable the writing into this database.</li>
+</ul>
+<p>Once you solve the above problems, nothing shall bother you any more. Simple create this mapper and follow the rest of official documentation to read your sensor from upstream:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> <span class="variable">$GOPATH</span>/src/github.com/kubeedge/examples/kubeedge-temperature-demo/</span><br><span class="line"></span><br><span class="line"><span class="comment"># Please enter the following details in the deployment.yaml :-</span></span><br><span class="line"><span class="comment">#    1. ~Replace &lt;edge_node_name&gt; with the name of your edge node at spec.template.spec.nodeSelector.name~</span></span><br><span class="line"><span class="comment">#       <span class="doctag">NOTE:</span> &lt;edge_node_name&gt; here actually means the node's label, not its name!!</span></span><br><span class="line"><span class="comment">#    2. Replace &lt;your_image&gt; at spec.template.spec.containers.image</span></span><br><span class="line"></span><br><span class="line">kc create -f deployment.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># The mapper will report back the temperature to cloud after updating. Observe the temperature in the cloud side.</span></span><br><span class="line">kc get device temperature -oyaml -w</span><br></pre></td></tr></table></figure>
+
+<h2 id="Pitfalls-坑-amp-Trouble-Shooting"><a href="#Pitfalls-坑-amp-Trouble-Shooting" class="headerlink" title="Pitfalls(坑) &amp; Trouble Shooting"></a>Pitfalls(坑) &amp; Trouble Shooting</h2><p>You may or may not come across the following problems, and I put here my solutions for your references:</p>
+<ul>
+<li>Q1: Cross-compile failed with errors: “xxx version: does not match version-control timestamp xxx”</li>
+</ul>
+<blockquote>
+<p>A1: Disable go mod solves this, that is, before your build, do <code>export GO111MODULE=off</code>.</p>
+</blockquote>
+<ul>
+<li>Q2: Cross-compile failed on CentOS 7: “ xxx arm-linux-gnueabi-gcc xxx”</li>
+</ul>
+<blockquote>
+<p>A2: CentOS doesn’t support gnu gcc cross compiler well, simple switch to Ubuntu 18.04 solves this issue for me (Trying to use CentOS’s gun cross compiler doesn’t work for me)</p>
+</blockquote>
+<ul>
+<li>Q3: Where to find the Kubeedge documentation to my target version?</li>
+</ul>
+<blockquote>
+<p>A3: The official documentation is a mess found <span class="exturl" data-url="aHR0cHM6Ly9yZWFkdGhlZG9jcy5vcmcvcHJvamVjdHMva3ViZWVkZ2UvZG93bmxvYWRzL3BkZi9sYXRlc3Qv" title="https://readthedocs.org/projects/kubeedge/downloads/pdf/latest/">here<i class="fa fa-external-link"></i></span>. However the references found under <code>doc</code> source folder are closer to the truth…</p>
+</blockquote>
+<ul>
+<li>Q4: Any Kubeedge MQTT references?</li>
+</ul>
+<blockquote>
+<p>A4: <span class="exturl" data-url="aHR0cHM6Ly9rdWJlZWRnZS5yZWFkdGhlZG9jcy5pby9lbi92MS4wLjAvZ3VpZGVzL21lc3NhZ2VfdG9waWNzLmh0bWw=" title="https://kubeedge.readthedocs.io/en/v1.0.0/guides/message_topics.html">Here<i class="fa fa-external-link"></i></span></p>
+</blockquote>
+<ul>
+<li>Q5: Forgot to delete the mapper deployment now it’s always automatically brought up by k3s, what shall I do?</li>
+</ul>
+<blockquote>
+<p>A5: The “etcd” is replaced by sqlite (in default) for k3s. You may manually delete those registered resources in <code>/var/lib/rancher/k3s/server/db/state.db</code> if can’t delete them from <code>kubectl</code> command.</p>
+</blockquote>
+<ul>
+<li>Q6: Give me a quick Sqlite Manual</li>
+</ul>
+<blockquote>
+<p>A6: <span class="exturl" data-url="aHR0cHM6Ly93d3cucnVub29iLmNvbS9zcWxpdGUvc3FsaXRlLXR1dG9yaWFsLmh0bWw=" title="https://www.runoob.com/sqlite/sqlite-tutorial.html">Here<i class="fa fa-external-link"></i></span></p>
+</blockquote>
+<ul>
+<li>Q7: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?</li>
+</ul>
+<blockquote>
+<p>A7: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2RvY2tlci9mb3ItbGludXgvaXNzdWVzLzUzNQ==" title="https://github.com/docker/for-linux/issues/535">Refer to this thread<i class="fa fa-external-link"></i></span>; solve by rm the docker related files and restart docker.</p>
+</blockquote>
+<ul>
+<li>Q8: How to check whether MQTT broker can be reached from within another container?</li>
+</ul>
+<blockquote>
+<p>A8: login to the other container and use <code>telnet &lt;mqtt-ip-addr&gt; &lt;mqtt-port&gt;</code> command.</p>
+</blockquote>
+<ul>
+<li>Q9: Understand MQTT server log info.</li>
+</ul>
+<blockquote>
+<p>A9: <span class="exturl" data-url="aHR0cHM6Ly9iaXRlZW5pdS5naXRodWIuaW8vbXF0dC9tb3NxdWl0dG8tbG9nLWFuYWx5c2lzLw==" title="https://biteeniu.github.io/mqtt/mosquitto-log-analysis/">Reference here<i class="fa fa-external-link"></i></span></p>
+</blockquote>
+<ul>
+<li>Q10: What is the <code>qemu-user-static</code> that Kubeedge project uses for cross-compile from within docker?</li>
+</ul>
+<blockquote>
+<p>A10: <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL211bHRpYXJjaC9xZW11LXVzZXItc3RhdGljI3FlbXUtdXNlci1zdGF0aWM=" title="https://github.com/multiarch/qemu-user-static#qemu-user-static">Here<i class="fa fa-external-link"></i></span></p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>ㄟ(●′ω`●)ㄏ</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechat.png" alt="R5by WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
+
+    <footer class="post-footer">
+          
+        
+        <div class="post-tags">
+            <a href="/tags/kubeedge-k3s/" rel="tag"># kubeedge, k3s</a>
+          
+        </div>
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+        </div>
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2020/02/01/kubeedge-on-k3s-3/" rel="next" title="k3s+kubeedge (3) Deploy Edge Core on Raspberry Pi 3">
+                <i class="fa fa-chevron-left"></i> k3s+kubeedge (3) Deploy Edge Core on Raspberry Pi 3
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2021/03/06/tmux/" rel="prev" title="五分钟学会tmux">
+                五分钟学会tmux <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <!-- customize link to "about me" -->
+    <a href="/about/" rel="section">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.png"
+      alt="R5by"></a>
+  <p class="site-author-name" itemprop="name">R5by</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3I1Ynk=" title="GitHub &rarr; https://github.com/r5by"><i class="fa fa-fw fa-github"></i>GitHub</span>
+      </span>
+    
+  </div>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pre-requisites"><span class="nav-number">1.</span> <span class="nav-text">Pre-requisites</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Upgrade-to-Kubeedge-v1-1-0"><span class="nav-number">2.</span> <span class="nav-text">Upgrade to Kubeedge v1.1.0</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Kubeedge-Mapper"><span class="nav-number">3.</span> <span class="nav-text">The Kubeedge Mapper</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pitfalls-坑-amp-Trouble-Shooting"><span class="nav-number">4.</span> <span class="nav-text">Pitfalls(坑) &amp; Trouble Shooting</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">R5by</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+      <span class="post-meta-item-text">Symbols count total: </span>
+    
+    <span title="Symbols count total">59k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">Reading time total &asymp;</span>
+    
+    <span title="Reading time total">54 mins.</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+  <script src="/js/exturl.js?v=7.3.0"></script>
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id: 21460,
+      el: 'wpac-rating',
+      color: 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  </script>
+
+
+
+  <script src="/js/local-search.js?v=7.3.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'e6801dba21d5153fca76',
+    clientSecret: '2b1f89619ca1f0c197aea0e432c0c71b9008946c',
+    repo: 'r5by.github.io',
+    owner: 'r5by',
+    admin: ['r5by'],
+    id: md5(location.pathname),
+      language: 'en',
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
+
+    <!-- 页面点击小红心 -->
+
+
+<!-- 点击烟花效果 -->
+
+
+<!-- Digital rain background -->
+
+
+<!-- matrix digital rain -->
+
+  <div class="background" style="position: fixed; right: 0px; bottom: 0px;min-width: 100%;min-height: 100%;height: auto;width: auto;z-index: -1;">
+      <rain></rain>
+  </div>
+  <script type="text/javascript" src="/js/mtxdigitalrain.js"></script>
+
+
+<!-- subtitle text changing -->
+<script type="text/javascript" src="/js/decryption.js"></script>
+
+</body>
+</html>
