@@ -5,9 +5,9 @@
   <subtitle>Welcome</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://ruby-.github.io/"/>
+  <link href="https://r5by.github.io/"/>
   <updated>2021-07-24T05:39:21.462Z</updated>
-  <id>https://ruby-.github.io/</id>
+  <id>https://r5by.github.io/</id>
   
   <author>
     <name>R5by</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>信息理论修炼手册(0) -- 编码理论基础与乱七八糟</title>
-    <link href="https://ruby-.github.io/2021/07/24/information-theory-0-basic-encoding/"/>
-    <id>https://ruby-.github.io/2021/07/24/information-theory-0-basic-encoding/</id>
+    <link href="https://r5by.github.io/2021/07/24/information-theory-0-basic-encoding/"/>
+    <id>https://r5by.github.io/2021/07/24/information-theory-0-basic-encoding/</id>
     <published>2021-07-24T04:54:34.000Z</published>
     <updated>2021-07-24T05:39:21.462Z</updated>
     
@@ -40,8 +40,8 @@
   
   <entry>
     <title>信息理论修炼手册（1）：汉明距离</title>
-    <link href="https://ruby-.github.io/2021/06/28/information-theory-1-Hamming-Distance/"/>
-    <id>https://ruby-.github.io/2021/06/28/information-theory-1-Hamming-Distance/</id>
+    <link href="https://r5by.github.io/2021/06/28/information-theory-1-Hamming-Distance/"/>
+    <id>https://r5by.github.io/2021/06/28/information-theory-1-Hamming-Distance/</id>
     <published>2021-06-28T11:32:25.000Z</published>
     <updated>2021-07-01T03:07:13.106Z</updated>
     
@@ -62,8 +62,8 @@
   
   <entry>
     <title>地球online生存指南之种植篇（一）：万物有时</title>
-    <link href="https://ruby-.github.io/2021/03/18/corps-time/"/>
-    <id>https://ruby-.github.io/2021/03/18/corps-time/</id>
+    <link href="https://r5by.github.io/2021/03/18/corps-time/"/>
+    <id>https://r5by.github.io/2021/03/18/corps-time/</id>
     <published>2021-03-18T03:15:52.000Z</published>
     <updated>2021-03-18T13:42:32.987Z</updated>
     
@@ -79,17 +79,17 @@
     </summary>
     
     
-      <category term="agriculture, life-style" scheme="https://ruby-.github.io/categories/agriculture-life-style/"/>
+      <category term="agriculture, life-style" scheme="https://r5by.github.io/categories/agriculture-life-style/"/>
     
     
-      <category term="life-style" scheme="https://ruby-.github.io/tags/life-style/"/>
+      <category term="life-style" scheme="https://r5by.github.io/tags/life-style/"/>
     
   </entry>
   
   <entry>
     <title>我的鸡动车驾驶证考试笔记</title>
-    <link href="https://ruby-.github.io/2021/03/08/driver-test/"/>
-    <id>https://ruby-.github.io/2021/03/08/driver-test/</id>
+    <link href="https://r5by.github.io/2021/03/08/driver-test/"/>
+    <id>https://r5by.github.io/2021/03/08/driver-test/</id>
     <published>2021-03-08T12:10:18.000Z</published>
     <updated>2021-03-18T12:49:12.353Z</updated>
     
@@ -105,17 +105,17 @@
     </summary>
     
     
-      <category term="life-style" scheme="https://ruby-.github.io/categories/life-style/"/>
+      <category term="life-style" scheme="https://r5by.github.io/categories/life-style/"/>
     
     
-      <category term="life-style" scheme="https://ruby-.github.io/tags/life-style/"/>
+      <category term="life-style" scheme="https://r5by.github.io/tags/life-style/"/>
     
   </entry>
   
   <entry>
     <title>五分钟学会tmux</title>
-    <link href="https://ruby-.github.io/2021/03/06/tmux/"/>
-    <id>https://ruby-.github.io/2021/03/06/tmux/</id>
+    <link href="https://r5by.github.io/2021/03/06/tmux/"/>
+    <id>https://r5by.github.io/2021/03/06/tmux/</id>
     <published>2021-03-06T12:20:11.000Z</published>
     <updated>2021-03-06T13:43:53.180Z</updated>
     
@@ -132,17 +132,17 @@
     </summary>
     
     
-      <category term="work efficiency" scheme="https://ruby-.github.io/categories/work-efficiency/"/>
+      <category term="work efficiency" scheme="https://r5by.github.io/categories/work-efficiency/"/>
     
     
-      <category term="tmux, linux" scheme="https://ruby-.github.io/tags/tmux-linux/"/>
+      <category term="tmux, linux" scheme="https://r5by.github.io/tags/tmux-linux/"/>
     
   </entry>
   
   <entry>
     <title>Kubeedge Examples (Temperature Sensor Demo)</title>
-    <link href="https://ruby-.github.io/2020/03/04/kubeedge-temperature-demo/"/>
-    <id>https://ruby-.github.io/2020/03/04/kubeedge-temperature-demo/</id>
+    <link href="https://r5by.github.io/2020/03/04/kubeedge-temperature-demo/"/>
+    <id>https://r5by.github.io/2020/03/04/kubeedge-temperature-demo/</id>
     <published>2020-03-04T07:45:05.000Z</published>
     <updated>2020-03-05T04:54:34.000Z</updated>
     
@@ -158,17 +158,17 @@
     </summary>
     
     
-      <category term="edge computing, cloud computing" scheme="https://ruby-.github.io/categories/edge-computing-cloud-computing/"/>
+      <category term="edge computing, cloud computing" scheme="https://r5by.github.io/categories/edge-computing-cloud-computing/"/>
     
     
-      <category term="kubeedge, k3s" scheme="https://ruby-.github.io/tags/kubeedge-k3s/"/>
+      <category term="kubeedge, k3s" scheme="https://r5by.github.io/tags/kubeedge-k3s/"/>
     
   </entry>
   
   <entry>
     <title>k3s+kubeedge (3) Deploy Edge Core on Raspberry Pi 3</title>
-    <link href="https://ruby-.github.io/2020/02/01/kubeedge-on-k3s-3/"/>
-    <id>https://ruby-.github.io/2020/02/01/kubeedge-on-k3s-3/</id>
+    <link href="https://r5by.github.io/2020/02/01/kubeedge-on-k3s-3/"/>
+    <id>https://r5by.github.io/2020/02/01/kubeedge-on-k3s-3/</id>
     <published>2020-02-01T07:37:32.000Z</published>
     <updated>2020-02-01T23:13:17.000Z</updated>
     
@@ -184,17 +184,17 @@
     </summary>
     
     
-      <category term="edge computing, cloud computing" scheme="https://ruby-.github.io/categories/edge-computing-cloud-computing/"/>
+      <category term="edge computing, cloud computing" scheme="https://r5by.github.io/categories/edge-computing-cloud-computing/"/>
     
     
-      <category term="kubeedge, k3s" scheme="https://ruby-.github.io/tags/kubeedge-k3s/"/>
+      <category term="kubeedge, k3s" scheme="https://r5by.github.io/tags/kubeedge-k3s/"/>
     
   </entry>
   
   <entry>
     <title>k3s+kubeedge (2) Deploy the Cloud Core (edgecontroller)</title>
-    <link href="https://ruby-.github.io/2020/02/01/kubeedge-on-k3s-2/"/>
-    <id>https://ruby-.github.io/2020/02/01/kubeedge-on-k3s-2/</id>
+    <link href="https://r5by.github.io/2020/02/01/kubeedge-on-k3s-2/"/>
+    <id>https://r5by.github.io/2020/02/01/kubeedge-on-k3s-2/</id>
     <published>2020-02-01T06:03:15.000Z</published>
     <updated>2020-02-01T23:13:03.000Z</updated>
     
@@ -210,17 +210,17 @@
     </summary>
     
     
-      <category term="edge computing, cloud computing" scheme="https://ruby-.github.io/categories/edge-computing-cloud-computing/"/>
+      <category term="edge computing, cloud computing" scheme="https://r5by.github.io/categories/edge-computing-cloud-computing/"/>
     
     
-      <category term="kubeedge, k3s" scheme="https://ruby-.github.io/tags/kubeedge-k3s/"/>
+      <category term="kubeedge, k3s" scheme="https://r5by.github.io/tags/kubeedge-k3s/"/>
     
   </entry>
   
   <entry>
     <title>k3s+kubeedge (1) Code Review/Debugging Environment Setup</title>
-    <link href="https://ruby-.github.io/2020/01/31/kubeedge-on-k3s-1/"/>
-    <id>https://ruby-.github.io/2020/01/31/kubeedge-on-k3s-1/</id>
+    <link href="https://r5by.github.io/2020/01/31/kubeedge-on-k3s-1/"/>
+    <id>https://r5by.github.io/2020/01/31/kubeedge-on-k3s-1/</id>
     <published>2020-01-31T13:25:25.000Z</published>
     <updated>2020-02-01T23:13:40.000Z</updated>
     
@@ -236,17 +236,17 @@
     </summary>
     
     
-      <category term="edge computing, cloud computing" scheme="https://ruby-.github.io/categories/edge-computing-cloud-computing/"/>
+      <category term="edge computing, cloud computing" scheme="https://r5by.github.io/categories/edge-computing-cloud-computing/"/>
     
     
-      <category term="kubeedge, k3s" scheme="https://ruby-.github.io/tags/kubeedge-k3s/"/>
+      <category term="kubeedge, k3s" scheme="https://r5by.github.io/tags/kubeedge-k3s/"/>
     
   </entry>
   
   <entry>
     <title>k3s Dev (2) Vagrant + VirtualBox Dev.</title>
-    <link href="https://ruby-.github.io/2019/10/30/k3s-dev-2/"/>
-    <id>https://ruby-.github.io/2019/10/30/k3s-dev-2/</id>
+    <link href="https://r5by.github.io/2019/10/30/k3s-dev-2/"/>
+    <id>https://r5by.github.io/2019/10/30/k3s-dev-2/</id>
     <published>2019-10-30T06:19:14.000Z</published>
     <updated>2019-10-30T22:34:09.000Z</updated>
     
@@ -262,17 +262,17 @@
     </summary>
     
     
-      <category term="edge computing" scheme="https://ruby-.github.io/categories/edge-computing/"/>
+      <category term="edge computing" scheme="https://r5by.github.io/categories/edge-computing/"/>
     
     
-      <category term="k3s, k8s" scheme="https://ruby-.github.io/tags/k3s-k8s/"/>
+      <category term="k3s, k8s" scheme="https://r5by.github.io/tags/k3s-k8s/"/>
     
   </entry>
   
   <entry>
     <title>k3s Dev (1) Environment Setup</title>
-    <link href="https://ruby-.github.io/2019/10/10/k3s-dev-1/"/>
-    <id>https://ruby-.github.io/2019/10/10/k3s-dev-1/</id>
+    <link href="https://r5by.github.io/2019/10/10/k3s-dev-1/"/>
+    <id>https://r5by.github.io/2019/10/10/k3s-dev-1/</id>
     <published>2019-10-10T07:07:36.000Z</published>
     <updated>2019-10-30T22:28:01.000Z</updated>
     
@@ -289,17 +289,17 @@
     </summary>
     
     
-      <category term="edge computing" scheme="https://ruby-.github.io/categories/edge-computing/"/>
+      <category term="edge computing" scheme="https://r5by.github.io/categories/edge-computing/"/>
     
     
-      <category term="k3s, k8s" scheme="https://ruby-.github.io/tags/k3s-k8s/"/>
+      <category term="k3s, k8s" scheme="https://r5by.github.io/tags/k3s-k8s/"/>
     
   </entry>
   
   <entry>
     <title>k3s Basics</title>
-    <link href="https://ruby-.github.io/2019/09/29/k3s-basics/"/>
-    <id>https://ruby-.github.io/2019/09/29/k3s-basics/</id>
+    <link href="https://r5by.github.io/2019/09/29/k3s-basics/"/>
+    <id>https://r5by.github.io/2019/09/29/k3s-basics/</id>
     <published>2019-09-29T09:45:11.000Z</published>
     <updated>2019-10-12T22:09:41.000Z</updated>
     
@@ -316,17 +316,17 @@
     </summary>
     
     
-      <category term="edge computing" scheme="https://ruby-.github.io/categories/edge-computing/"/>
+      <category term="edge computing" scheme="https://r5by.github.io/categories/edge-computing/"/>
     
     
-      <category term="k3s, k8s" scheme="https://ruby-.github.io/tags/k3s-k8s/"/>
+      <category term="k3s, k8s" scheme="https://r5by.github.io/tags/k3s-k8s/"/>
     
   </entry>
   
   <entry>
     <title>k8s Basics</title>
-    <link href="https://ruby-.github.io/2019/09/17/k8s-basics/"/>
-    <id>https://ruby-.github.io/2019/09/17/k8s-basics/</id>
+    <link href="https://r5by.github.io/2019/09/17/k8s-basics/"/>
+    <id>https://r5by.github.io/2019/09/17/k8s-basics/</id>
     <published>2019-09-17T12:56:46.000Z</published>
     <updated>2019-10-12T22:10:19.000Z</updated>
     
@@ -379,10 +379,10 @@
     </summary>
     
     
-      <category term="k8s" scheme="https://ruby-.github.io/categories/k8s/"/>
+      <category term="k8s" scheme="https://r5by.github.io/categories/k8s/"/>
     
     
-      <category term="k8s, demo" scheme="https://ruby-.github.io/tags/k8s-demo/"/>
+      <category term="k8s, demo" scheme="https://r5by.github.io/tags/k8s-demo/"/>
     
   </entry>
   
