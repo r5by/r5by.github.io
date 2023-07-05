@@ -62,13 +62,13 @@
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="R5by&#39;s Blog">
-<meta property="og:url" content="https://ruby-.github.io/index.html">
+<meta property="og:url" content="https://r5by.github.io/index.html">
 <meta property="og:site_name" content="R5by&#39;s Blog">
 <meta property="og:locale" content="zh-CN, en, default">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="R5by&#39;s Blog">
   <link rel="alternate" href="/atom.xml" title="R5by's Blog" type="application/atom+xml">
-  <link rel="canonical" href="https://ruby-.github.io/">
+  <link rel="canonical" href="https://r5by.github.io/">
 
 
 <script id="page.configurations">
@@ -241,7 +241,248 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ruby-.github.io/2021/03/18/corps-time/">
+    <link itemprop="mainEntityOfPage" href="https://r5by.github.io/2021/07/24/information-theory-0-basic-encoding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="R5by">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="R5by's Blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2021/07/24/information-theory-0-basic-encoding/" class="post-title-link" itemprop="url">信息理论修炼手册(0) -- 编码理论基础与乱七八糟</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2021-07-24 12:54:34 / Modified: 13:39:21" itemprop="dateCreated datePublished" datetime="2021-07-24T12:54:34+08:00">2021-07-24</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span title="Symbols count in article">533</span>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span title="Reading time">1 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>
+              研究背景编码理论中研究的核心问题为：将一串长度为k的比特序列 $c \in {0, 1}^k $​​​ 经过某种encoing，生成一串长度为n的新的比特序列 $\widetilde{c} \in {0, 1}^n$​​​​​​​​​​​​，注意这串新的比特序列可能在存储或者传输过程中被改变。如何设
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2021/07/24/information-theory-0-basic-encoding/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://r5by.github.io/2021/06/28/information-theory-1-Hamming-Distance/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="R5by">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="R5by's Blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2021/06/28/information-theory-1-Hamming-Distance/" class="post-title-link" itemprop="url">信息理论修炼手册（1）：汉明距离</a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2021-06-28 19:32:25" itemprop="dateCreated datePublished" datetime="2021-06-28T19:32:25+08:00">2021-06-28</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2021-07-01 11:07:13" itemprop="dateModified" datetime="2021-07-01T11:07:13+08:00">2021-07-01</time>
+              </span>
+            
+          
+
+          <br>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              
+              <span title="Symbols count in article">1.8k</span>
+            </span>
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              
+              <span title="Reading time">2 mins.</span>
+            </span>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>
+              为啥写这个系列2021年，告别上一段科研历程，开始新的征程。作为一名二手信息论科学家，职业素养还是要的。那么就以此作为契机，请诸君与笔者在地球online服务器上开始一段神秘的信息论探索之旅吧。
+开篇就要大搞特搞一提汉明距离，但凡搞咱这行的，多多少少都有些耳闻的。毕业以后参加工作面试，碰到个把岗位不
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2021/06/28/information-theory-1-Hamming-Distance/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://r5by.github.io/2021/03/18/corps-time/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="R5by">
@@ -372,7 +613,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ruby-.github.io/2021/03/08/driver-test/">
+    <link itemprop="mainEntityOfPage" href="https://r5by.github.io/2021/03/08/driver-test/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="R5by">
@@ -520,7 +761,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ruby-.github.io/2021/03/06/tmux/">
+    <link itemprop="mainEntityOfPage" href="https://r5by.github.io/2021/03/06/tmux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="R5by">
@@ -654,7 +895,7 @@ brew install tmux
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ruby-.github.io/2020/03/04/kubeedge-temperature-demo/">
+    <link itemprop="mainEntityOfPage" href="https://r5by.github.io/2020/03/04/kubeedge-temperature-demo/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="R5by">
@@ -794,7 +1035,7 @@ brew install tmux
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ruby-.github.io/2020/02/01/kubeedge-on-k3s-3/">
+    <link itemprop="mainEntityOfPage" href="https://r5by.github.io/2020/02/01/kubeedge-on-k3s-3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="R5by">
@@ -934,7 +1175,7 @@ brew install tmux
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ruby-.github.io/2020/02/01/kubeedge-on-k3s-2/">
+    <link itemprop="mainEntityOfPage" href="https://r5by.github.io/2020/02/01/kubeedge-on-k3s-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="R5by">
@@ -1074,7 +1315,7 @@ brew install tmux
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ruby-.github.io/2020/01/31/kubeedge-on-k3s-1/">
+    <link itemprop="mainEntityOfPage" href="https://r5by.github.io/2020/01/31/kubeedge-on-k3s-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="R5by">
@@ -1214,7 +1455,7 @@ brew install tmux
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ruby-.github.io/2019/10/30/k3s-dev-2/">
+    <link itemprop="mainEntityOfPage" href="https://r5by.github.io/2019/10/30/k3s-dev-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="R5by">
@@ -1347,288 +1588,6 @@ brew install tmux
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ruby-.github.io/2019/10/10/k3s-dev-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="R5by">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="R5by's Blog">
-    </span>
-      <header class="post-header">
-
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/10/10/k3s-dev-1/" class="post-title-link" itemprop="url">k3s Dev (1) Environment Setup</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-10-10 15:07:36" itemprop="dateCreated datePublished" datetime="2019-10-10T15:07:36+08:00">2019-10-10</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-10-31 06:28:01" itemprop="dateModified" datetime="2019-10-31T06:28:01+08:00">2019-10-31</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/edge-computing/" itemprop="url" rel="index"><span itemprop="name">edge computing</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              
-              <span title="Symbols count in article">7.6k</span>
-            </span>
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              
-              <span title="Reading time">7 mins.</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>
-              This post shows in steps how to set up a dev environment for k3s project.
-Step 1. PreparationThe following list shows my local development environment
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/10/10/k3s-dev-1/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://ruby-.github.io/2019/09/29/k3s-basics/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="R5by">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="R5by's Blog">
-    </span>
-      <header class="post-header">
-
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/29/k3s-basics/" class="post-title-link" itemprop="url">k3s Basics</a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-09-29 17:45:11" itemprop="dateCreated datePublished" datetime="2019-09-29T17:45:11+08:00">2019-09-29</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-10-13 06:09:41" itemprop="dateModified" datetime="2019-10-13T06:09:41+08:00">2019-10-13</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/edge-computing/" itemprop="url" rel="index"><span itemprop="name">edge computing</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              
-              <span title="Symbols count in article">5k</span>
-            </span>
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              
-              <span title="Reading time">5 mins.</span>
-            </span>
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>
-              This post explains my first impression with k3s.
-MotivationIn order to work on k3s project, one needs to learn to use it at first. This post summarize
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/09/29/k3s-basics/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1671,7 +1630,7 @@ MotivationIn order to work on k3s project, one needs to learn to use it at first
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1763,7 +1722,7 @@ MotivationIn order to work on k3s project, one needs to learn to use it at first
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2023</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1774,14 +1733,14 @@ MotivationIn order to work on k3s project, one needs to learn to use it at first
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
     
-    <span title="Symbols count total">61k</span>
+    <span title="Symbols count total">63k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
     
-    <span title="Reading time total">55 mins.</span>
+    <span title="Reading time total">57 mins.</span>
 </div>
 
         

@@ -1,6 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>信息理论修炼手册(0) -- 编码理论基础与乱七八糟</title>
+    <url>/2021/07/24/information-theory-0-basic-encoding/</url>
+    <content><![CDATA[<h2 id="研究背景"><a href="#研究背景" class="headerlink" title="研究背景"></a>研究背景</h2><p>编码理论中研究的核心问题为：将一串长度为<code>k</code>的比特序列 $c \in {0, 1}^k $​​​ 经过某种encoing，生成一串长度为<code>n</code>的新的比特序列 $\widetilde{c} \in {0, 1}^n$​​​​​​​​​​​​，注意这串新的比特序列可能在存储或者传输过程中被改变。如何设计encoing方法，使得即使部分信息丢失，依然可以复原最初的信息。</p>
+<p>设计encoding的方法，很显然应该考虑如下四点：</p>
+<ul>
+<li>（1）必须假定错误<strong>必然</strong>发生；</li>
+<li>（2）必须能够在某种程度上<strong>复原</strong>原消息；</li>
+<li>（3）所引入的overhead要小，即 $k/n$​ 要接近<code>1</code></li>
+<li>（4）必须足够高效（时间复杂度不可过高）</li>
+</ul>
+<p>想同时满足上面的四点显然不是一件容易的事情，很多时候设计者需要进行权衡：比如，如果要overhead特别小，那么纠错性就很可能收到影响。</p>
+<h2 id="常用概念和定义"><a href="#常用概念和定义" class="headerlink" title="常用概念和定义"></a>常用概念和定义</h2><h4 id="编码（Code）"><a href="#编码（Code）" class="headerlink" title="编码（Code）"></a>编码（Code）</h4><blockquote>
+<p>A Code of block length n over an alphabet $\sum$ is $C \subseteq \sum^n$ , the element $c \in C$ are <code>codewords</code></p>
+</blockquote>
+<ul>
+<li>案例（1）</li>
+</ul>
+<p>C = {HELLOWORLD, BRUNCHTIME, ALLTHETIME} 是字母表$\sum = {A, B, … Z}$​​​ 上长度为10的一组编码</p>
+<ul>
+<li>案例（2）</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
+    <title>信息理论修炼手册（1）：汉明距离</title>
+    <url>/2021/06/28/information-theory-1-Hamming-Distance/</url>
+    <content><![CDATA[<h2 id="为啥写这个系列"><a href="#为啥写这个系列" class="headerlink" title="为啥写这个系列"></a>为啥写这个系列</h2><p>2021年，告别上一段科研历程，开始新的征程。作为一名二手信息论科学家，职业素养还是要的。那么就以此作为契机，请诸君与笔者在地球online服务器上开始一段神秘的信息论探索之旅吧。</p>
+<h2 id="开篇就要大搞特搞"><a href="#开篇就要大搞特搞" class="headerlink" title="开篇就要大搞特搞"></a>开篇就要大搞特搞</h2><p>一提汉明距离，但凡搞咱这行的，多多少少都有些耳闻的。毕业以后参加工作面试，碰到个把岗位不想招人的主儿，分分钟让你写个<span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvbWluaW1pemUtaGFtbWluZy1kaXN0YW5jZS1hZnRlci1zd2FwLW9wZXJhdGlvbnMv" title="https://leetcode.com/problems/minimize-hamming-distance-after-swap-operations/">最小化汉明距离<i class="fa fa-external-link"></i></span>也不是不可能的。那么如何搞懂、搞会汉明距离的相关概念，从妈见打变成妈见夸，就是笔者写此篇的目的了。</p>
+<h2 id="我是谁，我在哪"><a href="#我是谁，我在哪" class="headerlink" title="我是谁，我在哪"></a>我是谁，我在哪</h2><p>要回答这一问题，我想最好的办法就是问一下<span class="exturl" data-url="aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvUmljaGFyZF9IYW1taW5n" title="https://en.wikipedia.org/wiki/Richard_Hamming">Richard Hamming<i class="fa fa-external-link"></i></span>老爷子，他是怎么想出鬼点子的。遗憾的是，老爷子98年就走了，不然一顿饭就能搞定的事，也就没必要逼的大家各种问谷歌了…</p>
+<p>不过好在老爷子跟我们一样有喜欢写博文的好习惯，所以在他1950年发表的<span class="exturl" data-url="aHR0cHM6Ly9pZWVleHBsb3JlLmllZWUub3JnL3N0YW1wL3N0YW1wLmpzcD90cD0mYXJudW1iZXI9Njc3MjcyOQ==" title="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6772729">这一篇<i class="fa fa-external-link"></i></span>具有奠基意义的文章中，我们可以推想如今大名鼎鼎的汉明距离是在何种场景下诞生的。</p>
+<p>上世纪50年代，正是电信行业如日中天的时代。彼时的小理查德还是一名在贝尔实验室寂寂无名的打工人，身边围绕着一群诸如香农这样的大神。然鹅机智的小理查德在枯燥的工作中观察就发现，实验室里面的继电器计算机5号（长相见下图）：</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Bell_Relay_Computer.png" alt></p>
+<p>在工作中经常会停机(原文，halt)，而且这种错误的出现有时是靠自检程序所无法规避的，频率大概是每200~300万条继电器操作(relay operation)出现一次。当时的计算任务特点是经常运转在无人看守的夜间或者周末，所以一出问题又会影响接下来的正常使用（为什么小理查德会发现呢，因为这孩子习惯在周五提交计算任务）。所以仅仅是发现错误（error detection）是不够的，还要让计算机能快速处理（更正错误，error correction）。当时他就暗下决心：如果机器能够发现错误，那么一定有一种方法，能让它更正自己的错误！</p>
+<h4 id="梦开始的地方"><a href="#梦开始的地方" class="headerlink" title="梦开始的地方"></a>梦开始的地方</h4><p>如何使程序本身（或者说信息本身）自带一种自我纠错的本领呢？带着这个想法，小理查德踏上了探索编码理论的道路。当然，我们的所研究的信息载体皆转换为二进制字串（binary sequence），也就是0101这样的比特序列，这一点无需多言（如果你是个好奇心很重的孩子，想更深入了解这一点，可以参考香农大神的<a href>这篇文章</a>）。对于存储来说，傻大粗笨的方案就是用维护两个副本(replica)，当某一bit位出现问题的时候就可以选多数来查到原信息。这一方案的关键在于假设不会有高于一个副本在同一bit位出错。</p>
+<p>更普遍的想法，是在原有信息的基础上，加上一部分“冗余”的纠错信息。更官方的说法，是在n个比特数位上(binary digits)，加入m位原信息(message)，用剩下的<code>k=n-m</code>数位，记载错误查改信息(校验位)。自然地，为衡量某一编码的优劣，可以使用<code>R=n/m</code>冗余度(redundancy)来表示使用系统化编码(systematic code 意指上述包含纠错码的二进制码)承载同一信息单位所必需的数位。使用两个副本的方案，冗余度很明显较高（R=3）。</p>
+<h4 id="柿子要挑软的捏"><a href="#柿子要挑软的捏" class="headerlink" title="柿子要挑软的捏"></a>柿子要挑软的捏</h4><p>上述问题的一个最最简化版本是，给一串比特序列，若知道仅有一位出错，如何使用最少的比特量检测出错误。再次强调一下，错误检测(error detection)和纠错(error correction)是两个概念，决不可混为一谈。那么最简单的办法，是在某一特定位（首或尾）添加<code>0</code>或者<code>1</code>，使得整串比特序列（或者目标片段）共包含偶数个<code>1</code>。这样，一旦发现发来的信息包含奇数个<code>1</code>，即证明出错。这一解法中，<code>R=1 + 1/(n - 1)</code>，咋一看，好像说<code>n</code>越大，用这一方法检测错误的效率越高；但仔细想想，其实不然，因为随着<code>n</code>的增大，出现错误的几率也随之增大，那么出现double error的情况也会增加而使得该方法失效。但这不意味着奇偶校验法就毫无用处，事实上任何一种encoding，都无法保证信息的完全无误，编码方案的指定应以达到特定error数量上限前的鲁棒性(robust)为依据。</p>
+<p>这个糙办法，其实也不是Rechard的发明。早在计算系统广泛应用奇偶校验法之前，电信系统早已普及parity check。奇偶校验法的trick在于，原信息任何位置的一位bit信息改变，都将直接导致parity bit的变化（牵一发而动全身）。受此方法启发的小理查德，开始思考如何在比特序列中的特定位置混入校验码，从而在错误被检测出来的同时，机器可以获得相应的错误比特位置信息。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>地球online生存指南之种植篇（一）：万物有时</title>
     <url>/2021/03/18/corps-time/</url>
     <content><![CDATA[<h2 id="万物有时"><a href="#万物有时" class="headerlink" title="万物有时"></a>万物有时</h2><p>在蓝星之上，一切生命都有它自己的时间；如何在恰当的时间，做恰当的事，是一件值得掰扯一下的事；就比方说，坐在电脑前看着这一篇没啥用的文章却不知道找对象的你，就没有在正确的时间干正确的事。</p>

@@ -60,15 +60,21 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="R5by&#39;s Blog">
-<meta property="og:url" content="https://r5by.github.io/page/2/index.html">
+  <meta name="description" content="为啥写这个系列2021年，告别上一段科研历程，开始新的征程。作为一名二手信息论科学家，职业素养还是要的。那么就以此作为契机，请诸君与笔者在地球online服务器上开始一段神秘的信息论探索之旅吧。 开篇就要大搞特搞一提汉明距离，但凡搞咱这行的，多多少少都有些耳闻的。毕业以后参加工作面试，碰到个把岗位不想招人的主儿，分分钟让你写个最小化汉明距离也不是不可能的。那么如何搞懂、搞会汉明距离的相关概念，从妈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="信息理论修炼手册（1）：汉明距离">
+<meta property="og:url" content="https://r5by.github.io/2021/06/28/information-theory-1-Hamming-Distance/index.html">
 <meta property="og:site_name" content="R5by&#39;s Blog">
+<meta property="og:description" content="为啥写这个系列2021年，告别上一段科研历程，开始新的征程。作为一名二手信息论科学家，职业素养还是要的。那么就以此作为契机，请诸君与笔者在地球online服务器上开始一段神秘的信息论探索之旅吧。 开篇就要大搞特搞一提汉明距离，但凡搞咱这行的，多多少少都有些耳闻的。毕业以后参加工作面试，碰到个把岗位不想招人的主儿，分分钟让你写个最小化汉明距离也不是不可能的。那么如何搞懂、搞会汉明距离的相关概念，从妈">
 <meta property="og:locale" content="zh-CN, en, default">
+<meta property="og:image" content="https://upload.wikimedia.org/wikipedia/commons/8/80/Bell_Relay_Computer.png">
+<meta property="og:updated_time" content="2021-07-01T03:07:13.106Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="R5by&#39;s Blog">
+<meta name="twitter:title" content="信息理论修炼手册（1）：汉明距离">
+<meta name="twitter:description" content="为啥写这个系列2021年，告别上一段科研历程，开始新的征程。作为一名二手信息论科学家，职业素养还是要的。那么就以此作为契机，请诸君与笔者在地球online服务器上开始一段神秘的信息论探索之旅吧。 开篇就要大搞特搞一提汉明距离，但凡搞咱这行的，多多少少都有些耳闻的。毕业以后参加工作面试，碰到个把岗位不想招人的主儿，分分钟让你写个最小化汉明距离也不是不可能的。那么如何搞懂、搞会汉明距离的相关概念，从妈">
+<meta name="twitter:image" content="https://upload.wikimedia.org/wikipedia/commons/8/80/Bell_Relay_Computer.png">
   <link rel="alternate" href="/atom.xml" title="R5by's Blog" type="application/atom+xml">
-  <link rel="canonical" href="https://r5by.github.io/page/2/">
+  <link rel="canonical" href="https://r5by.github.io/2021/06/28/information-theory-1-Hamming-Distance/">
 
 
 <script id="page.configurations">
@@ -84,7 +90,7 @@
 
   <meta name="google" content="notranslate">
 
-  <title>R5by's Blog - Welcome</title>
+  <title>信息理论修炼手册（1）：汉明距离 | R5by's Blog</title>
   
 
 
@@ -123,7 +129,7 @@
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN, en, default">
 
-  <div class="container sidebar-position-right page-home">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 
     <a href="https://github.com/r5by" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#FD6C6C; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
@@ -233,15 +239,17 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
-      
+
+  <div id="posts" class="posts-expand">
+    
+    <div class="reading-progress-bar"></div>
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
   
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://r5by.github.io/2019/10/10/k3s-dev-1/">
+    <link itemprop="mainEntityOfPage" href="https://r5by.github.io/2021/06/28/information-theory-1-Hamming-Distance/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="R5by">
@@ -255,10 +263,8 @@
       <header class="post-header">
 
         
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/10/10/k3s-dev-1/" class="post-title-link" itemprop="url">k3s Dev (1) Environment Setup</a>
+          <h2 class="post-title" itemprop="name headline">信息理论修炼手册（1）：汉明距离
+
               
             
           </h2>
@@ -277,7 +283,7 @@
                 
               
 
-              <time title="Created: 2019-10-10 15:07:36" itemprop="dateCreated datePublished" datetime="2019-10-10T15:07:36+08:00">2019-10-10</time>
+              <time title="Created: 2021-06-28 19:32:25" itemprop="dateCreated datePublished" datetime="2021-06-28T19:32:25+08:00">2021-06-28</time>
             </span>
           
             
@@ -290,24 +296,9 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-10-31 06:28:01" itemprop="dateModified" datetime="2019-10-31T06:28:01+08:00">2019-10-31</time>
+                <time title="Modified: 2021-07-01 11:07:13" itemprop="dateModified" datetime="2021-07-01T11:07:13+08:00">2021-07-01</time>
               </span>
             
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/edge-computing/" itemprop="url" rel="index"><span itemprop="name">edge computing</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           <br>
@@ -318,7 +309,7 @@
               
                 <span class="post-meta-item-text">Symbols count in article: </span>
               
-              <span title="Symbols count in article">7.6k</span>
+              <span title="Symbols count in article">1.8k</span>
             </span>
           
             <span class="post-meta-item">
@@ -328,7 +319,7 @@
               
                 <span class="post-meta-item-text">Reading time &asymp;</span>
               
-              <span title="Reading time">7 mins.</span>
+              <span title="Reading time">2 mins.</span>
             </span>
           
 
@@ -341,349 +332,73 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
-            <p>
-              This post shows in steps how to set up a dev environment for k3s project.
-Step 1. PreparationThe following list shows my local development environment
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/10/10/k3s-dev-1/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
+        <h2 id="为啥写这个系列"><a href="#为啥写这个系列" class="headerlink" title="为啥写这个系列"></a>为啥写这个系列</h2><p>2021年，告别上一段科研历程，开始新的征程。作为一名二手信息论科学家，职业素养还是要的。那么就以此作为契机，请诸君与笔者在地球online服务器上开始一段神秘的信息论探索之旅吧。</p>
+<h2 id="开篇就要大搞特搞"><a href="#开篇就要大搞特搞" class="headerlink" title="开篇就要大搞特搞"></a>开篇就要大搞特搞</h2><p>一提汉明距离，但凡搞咱这行的，多多少少都有些耳闻的。毕业以后参加工作面试，碰到个把岗位不想招人的主儿，分分钟让你写个<span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jb20vcHJvYmxlbXMvbWluaW1pemUtaGFtbWluZy1kaXN0YW5jZS1hZnRlci1zd2FwLW9wZXJhdGlvbnMv" title="https://leetcode.com/problems/minimize-hamming-distance-after-swap-operations/">最小化汉明距离<i class="fa fa-external-link"></i></span>也不是不可能的。那么如何搞懂、搞会汉明距离的相关概念，从妈见打变成妈见夸，就是笔者写此篇的目的了。</p>
+<h2 id="我是谁，我在哪"><a href="#我是谁，我在哪" class="headerlink" title="我是谁，我在哪"></a>我是谁，我在哪</h2><p>要回答这一问题，我想最好的办法就是问一下<span class="exturl" data-url="aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvUmljaGFyZF9IYW1taW5n" title="https://en.wikipedia.org/wiki/Richard_Hamming">Richard Hamming<i class="fa fa-external-link"></i></span>老爷子，他是怎么想出鬼点子的。遗憾的是，老爷子98年就走了，不然一顿饭就能搞定的事，也就没必要逼的大家各种问谷歌了…</p>
+<p>不过好在老爷子跟我们一样有喜欢写博文的好习惯，所以在他1950年发表的<span class="exturl" data-url="aHR0cHM6Ly9pZWVleHBsb3JlLmllZWUub3JnL3N0YW1wL3N0YW1wLmpzcD90cD0mYXJudW1iZXI9Njc3MjcyOQ==" title="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=6772729">这一篇<i class="fa fa-external-link"></i></span>具有奠基意义的文章中，我们可以推想如今大名鼎鼎的汉明距离是在何种场景下诞生的。</p>
+<p>上世纪50年代，正是电信行业如日中天的时代。彼时的小理查德还是一名在贝尔实验室寂寂无名的打工人，身边围绕着一群诸如香农这样的大神。然鹅机智的小理查德在枯燥的工作中观察就发现，实验室里面的继电器计算机5号（长相见下图）：</p>
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Bell_Relay_Computer.png" alt></p>
+<p>在工作中经常会停机(原文，halt)，而且这种错误的出现有时是靠自检程序所无法规避的，频率大概是每200~300万条继电器操作(relay operation)出现一次。当时的计算任务特点是经常运转在无人看守的夜间或者周末，所以一出问题又会影响接下来的正常使用（为什么小理查德会发现呢，因为这孩子习惯在周五提交计算任务）。所以仅仅是发现错误（error detection）是不够的，还要让计算机能快速处理（更正错误，error correction）。当时他就暗下决心：如果机器能够发现错误，那么一定有一种方法，能让它更正自己的错误！</p>
+<h4 id="梦开始的地方"><a href="#梦开始的地方" class="headerlink" title="梦开始的地方"></a>梦开始的地方</h4><p>如何使程序本身（或者说信息本身）自带一种自我纠错的本领呢？带着这个想法，小理查德踏上了探索编码理论的道路。当然，我们的所研究的信息载体皆转换为二进制字串（binary sequence），也就是0101这样的比特序列，这一点无需多言（如果你是个好奇心很重的孩子，想更深入了解这一点，可以参考香农大神的<a href>这篇文章</a>）。对于存储来说，傻大粗笨的方案就是用维护两个副本(replica)，当某一bit位出现问题的时候就可以选多数来查到原信息。这一方案的关键在于假设不会有高于一个副本在同一bit位出错。</p>
+<p>更普遍的想法，是在原有信息的基础上，加上一部分“冗余”的纠错信息。更官方的说法，是在n个比特数位上(binary digits)，加入m位原信息(message)，用剩下的<code>k=n-m</code>数位，记载错误查改信息(校验位)。自然地，为衡量某一编码的优劣，可以使用<code>R=n/m</code>冗余度(redundancy)来表示使用系统化编码(systematic code 意指上述包含纠错码的二进制码)承载同一信息单位所必需的数位。使用两个副本的方案，冗余度很明显较高（R=3）。</p>
+<h4 id="柿子要挑软的捏"><a href="#柿子要挑软的捏" class="headerlink" title="柿子要挑软的捏"></a>柿子要挑软的捏</h4><p>上述问题的一个最最简化版本是，给一串比特序列，若知道仅有一位出错，如何使用最少的比特量检测出错误。再次强调一下，错误检测(error detection)和纠错(error correction)是两个概念，决不可混为一谈。那么最简单的办法，是在某一特定位（首或尾）添加<code>0</code>或者<code>1</code>，使得整串比特序列（或者目标片段）共包含偶数个<code>1</code>。这样，一旦发现发来的信息包含奇数个<code>1</code>，即证明出错。这一解法中，<code>R=1 + 1/(n - 1)</code>，咋一看，好像说<code>n</code>越大，用这一方法检测错误的效率越高；但仔细想想，其实不然，因为随着<code>n</code>的增大，出现错误的几率也随之增大，那么出现double error的情况也会增加而使得该方法失效。但这不意味着奇偶校验法就毫无用处，事实上任何一种encoding，都无法保证信息的完全无误，编码方案的指定应以达到特定error数量上限前的鲁棒性(robust)为依据。</p>
+<p>这个糙办法，其实也不是Rechard的发明。早在计算系统广泛应用奇偶校验法之前，电信系统早已普及parity check。奇偶校验法的trick在于，原信息任何位置的一位bit信息改变，都将直接导致parity bit的变化（牵一发而动全身）。受此方法启发的小理查德，开始思考如何在比特序列中的特定位置混入校验码，从而在错误被检测出来的同时，机器可以获得相应的错误比特位置信息。</p>
+
     </div>
 
     
     
     
     
+      <div>
+        <div id="reward-container">
+  <div>ㄟ(●′ω`●)ㄏ</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechat.png" alt="R5by WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+
+  </div>
+</div>
+
+      </div>
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://r5by.github.io/2019/09/29/k3s-basics/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="R5by">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="R5by's Blog">
-    </span>
-      <header class="post-header">
-
+        <div class="post-widgets">
         
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/29/k3s-basics/" class="post-title-link" itemprop="url">k3s Basics</a>
-              
-            
-          </h2>
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
         
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
+        
 
-              
-                
-              
-
-              <time title="Created: 2019-09-29 17:45:11" itemprop="dateCreated datePublished" datetime="2019-09-29T17:45:11+08:00">2019-09-29</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-10-13 06:09:41" itemprop="dateModified" datetime="2019-10-13T06:09:41+08:00">2019-10-13</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/edge-computing/" itemprop="url" rel="index"><span itemprop="name">edge computing</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              
-              <span title="Symbols count in article">5k</span>
-            </span>
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              
-              <span title="Reading time">5 mins.</span>
-            </span>
-          
-
+        
         </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-          
-            <p>
-              This post explains my first impression with k3s.
-MotivationIn order to work on k3s project, one needs to learn to use it at first. This post summarize
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/09/29/k3s-basics/#more" rel="contents">
-                Read more &raquo;
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2021/03/18/corps-time/" rel="next" title="地球online生存指南之种植篇（一）：万物有时">
+                <i class="fa fa-chevron-left"></i> 地球online生存指南之种植篇（一）：万物有时
               </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://r5by.github.io/2019/09/17/k8s-basics/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="R5by">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="R5by's Blog">
-    </span>
-      <header class="post-header">
-
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/17/k8s-basics/" class="post-title-link" itemprop="url">k8s Basics</a>
-              
             
-          </h2>
-        
+          </div>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
+          <span class="post-nav-divider"></span>
 
-              
-                
-              
-
-              <time title="Created: 2019-09-17 20:56:46" itemprop="dateCreated datePublished" datetime="2019-09-17T20:56:46+08:00">2019-09-17</time>
-            </span>
-          
+          <div class="post-nav-prev post-nav-item">
+              <a href="/2021/07/24/information-theory-0-basic-encoding/" rel="prev" title="信息理论修炼手册(0) -- 编码理论基础与乱七八糟">
+                信息理论修炼手册(0) -- 编码理论基础与乱七八糟 <i class="fa fa-chevron-right"></i>
+              </a>
             
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-10-13 06:10:19" itemprop="dateModified" datetime="2019-10-13T06:10:19+08:00">2019-10-13</time>
-              </span>
-            
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          <br>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              
-              <span title="Symbols count in article">4.1k</span>
-            </span>
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              
-              <span title="Reading time">4 mins.</span>
-            </span>
-          
-
+          </div>
         </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>This post demonstrate some Kubernetes basic commends.</p>
-<h2 id="Server-Overview"><a href="#Server-Overview" class="headerlink" title="Server Overview"></a>Server Overview</h2><p>We have setup 3 virtual machines，each has 1 cpu and 1GB memory. Details：</p>
-<table>
-<thead>
-<tr>
-<th align="center">Server OS</th>
-<th align="center">IP Address</th>
-<th align="center">Node Type</th>
-<th align="center">CPU</th>
-<th align="center">Memory</th>
-<th align="center">Hostname</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">ubuntu16.04</td>
-<td align="center">192.168.56.103</td>
-<td align="center">master</td>
-<td align="center">1</td>
-<td align="center">1G</td>
-<td align="center">server01</td>
-</tr>
-<tr>
-<td align="center">ubuntu16.04</td>
-<td align="center">192.168.56.104</td>
-<td align="center">slave1</td>
-<td align="center">1</td>
-<td align="center">1G</td>
-<td align="center">server02</td>
-</tr>
-<tr>
-<td align="center">ubuntu16.04</td>
-<td align="center">192.168.56.105</td>
-<td align="center">slave2</td>
-<td align="center">1</td>
-<td align="center">1G</td>
-<td align="center">server03</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>To follow this demo, root privilege is required, ask system admin (Todd) for root access.</p>
-</blockquote>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/09/17/k8s-basics/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
     </footer>
   </div>
   
@@ -691,17 +406,15 @@ MotivationIn order to work on k3s project, one needs to learn to use it at first
   
   </article>
 
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="Previous page"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
+  </div>
 
 
           </div>
           
+    
+    <div class="comments" id="gitalk-container"></div>
+  
+
 
         </div>
           
@@ -716,8 +429,17 @@ MotivationIn order to work on k3s project, one needs to learn to use it at first
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -815,6 +537,23 @@ MotivationIn order to work on k3s project, one needs to learn to use it at first
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为啥写这个系列"><span class="nav-number">1.</span> <span class="nav-text">为啥写这个系列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开篇就要大搞特搞"><span class="nav-number">2.</span> <span class="nav-text">开篇就要大搞特搞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我是谁，我在哪"><span class="nav-number">3.</span> <span class="nav-text">我是谁，我在哪</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#梦开始的地方"><span class="nav-number">3.0.1.</span> <span class="nav-text">梦开始的地方</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#柿子要挑软的捏"><span class="nav-number">3.0.2.</span> <span class="nav-text">柿子要挑软的捏</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
@@ -883,6 +622,10 @@ MotivationIn order to work on k3s project, one needs to learn to use it at first
 
 
   
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
 
   <script src="/js/next-boot.js?v=7.3.0"></script>
 
@@ -915,6 +658,24 @@ MotivationIn order to work on k3s project, one needs to learn to use it at first
 
 
 
+  <script>
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id: 21460,
+      el: 'wpac-rating',
+      color: 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  </script>
 
 
 
@@ -933,6 +694,24 @@ MotivationIn order to work on k3s project, one needs to learn to use it at first
 
 
     
+<script src="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+<script src="//cdn.jsdelivr.net/npm/js-md5@0.7.3/src/md5.min.js"></script>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: 'e6801dba21d5153fca76',
+    clientSecret: '2b1f89619ca1f0c197aea0e432c0c71b9008946c',
+    repo: 'r5by.github.io',
+    owner: 'r5by',
+    admin: ['r5by'],
+    id: md5(location.pathname),
+      language: 'en',
+    
+    distractionFreeMode: 'true'
+  });
+  gitalk.render('gitalk-container');
+</script>
 
     <!-- 页面点击小红心 -->
 
